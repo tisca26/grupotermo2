@@ -216,7 +216,7 @@
                                                 <div class="form-actions right">
                                                     <a type="button" class="btn default"
                                                        href="<?php echo base_url('empresas'); ?>">Cancelar</a>
-                                                    <button type="submit" class="btn blue">
+                                                    <button type="submit" class="btn blue" id="btn_submit_form1">
                                                         <i class="fa fa-check"></i> Guardar
                                                     </button>
                                                 </div>
@@ -344,6 +344,7 @@
             },
             submitHandler: function (form) {
                 error1.hide();
+                $('#btn_submit_form1').attr('disabled', 'true').text('Cargando...');
                 form[0].submit(); // submit the form
             }
         });

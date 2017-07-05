@@ -216,7 +216,7 @@
                                                 <div class="form-actions right">
                                                     <a type="button" class="btn default"
                                                        href="<?php echo base_url('clientes'); ?>">Cancelar</a>
-                                                    <button type="submit" class="btn blue">
+                                                    <button type="submit" class="btn blue" id="btn_submit_form1">
                                                         <i class="fa fa-check"></i> Guardar
                                                     </button>
                                                 </div>
@@ -343,6 +343,7 @@
                 label.closest('.form-group').removeClass('has-error'); // set success class to the control group
             },
             submitHandler: function (form) {
+                $('#btn_submit_form1').attr('disabled', 'true').text('Cargando...');
                 error1.hide();
                 form[0].submit(); // submit the form
             }
