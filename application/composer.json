@@ -1,5 +1,4 @@
 {
   "require": {
-    "lunasoft/sw-sdk-php": "dev-master"
   }
 }

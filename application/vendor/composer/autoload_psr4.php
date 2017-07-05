@@ -6,6 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'tests\\' => array($vendorDir . '/lunasoft/sw-sdk-php/tests'),
-    'SWServices\\' => array($vendorDir . '/lunasoft/sw-sdk-php/SWServices'),
 );
