@@ -10,12 +10,12 @@ class Empresa
         $this->CI->load->model('empresas_model');
     }
 
-    public function empresas_por_cuenta($cuentas_id = 0, $order_by = 'empresas_id')
+    public function empresas_por_cuenta($cuentas_id = 0, $estatus = null, $order_by = 'empresas_id')
     {
         if (is_null($cuentas_id)) {
             $cuentas_id = 0;
         }
-        return $this->CI->empresas_model->empresas_todos_por_cuenta($cuentas_id, $order_by);
+        return $this->CI->empresas_model->empresas_todos_por_cuenta($cuentas_id, $estatus, $order_by);
     }
 
     public function empresa_por_id_y_cuenta($empresas_id = 0, $cuentas_id = 0)

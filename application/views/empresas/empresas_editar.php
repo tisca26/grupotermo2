@@ -117,7 +117,7 @@
                                                                     'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
                                                                 ]; ?>
                                                                 <?php echo form_input('nombre', set_value('nombre', $empresa->nombre), $data_nombre); ?>
-                                                                <span class="help-block">Nombrede la empresa</span>
+                                                                <span class="help-block">Nombre de la empresa</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">

@@ -17,9 +17,12 @@ class Proveedores_model extends CI_Model
         return $this->db->error();
     }
 
-    public function proveedores_todos_por_cuenta($cuentas_id = 0, $order_by = 'proveedores_id')
+    public function proveedores_todos_por_cuenta($cuentas_id = 0, $estatus = null, $order_by = 'proveedores_id')
     {
         $res = array();
+        if (!is_null($estatus)){
+            $this->db->where('estatus', $estatus);
+        }
         $q = $this->db->where('cuentas_id', $cuentas_id)->order_by($order_by)->get('proveedores');
         if ($q->num_rows() > 0) {
             $res = $q->result();

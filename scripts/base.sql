@@ -3091,3 +3091,42 @@ INSERT INTO cat_bancos (clave, nombre_corto, nombre) VALUES
 ('670','LIBERTAD','Libertad Servicios Financieros, S.A. De C.V.'),
 ('999','N/A',' ');
 
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS `obras` (
+  `obras_id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(255) NULL,
+  `empresas_id` INT NOT NULL DEFAULT 0,
+  `clientes_id` INT NOT NULL DEFAULT 0,
+  `cat_municipios_id` INT NOT NULL DEFAULT 0,
+  `cat_estados_id` INT NOT NULL DEFAULT 0,
+  `etapa` VARCHAR(100) NULL,
+  `fecha_inicio` DATE NULL,
+  `estatus` INT(1) NOT NULL DEFAULT 1,
+  `cuentas_id` INT NOT NULL DEFAULT 0,
+  `fecha_creacion` DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  `fecha_edicion` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`obras_id`),
+  INDEX `obras_empresas_idx` (`empresas_id` ASC),
+  INDEX `obras_clientes_idx` (`clientes_id` ASC),
+  INDEX `obras_municipios_idx` (`cat_municipios_id` ASC),
+  INDEX `obras_estados_idx` (`cat_estados_id` ASC),
+  INDEX `obras_estatus_idx` (`estatus` ASC),
+  INDEX `obras_cuentas_idx` (`cuentas_id` ASC))
+ENGINE = InnoDB;
+
+CREATE OR REPLACE VIEW v_obras AS 
+SELECT o.*, e.nombre as nombre_empresa, c.nombre as nombre_cliente
+FROM obras o
+INNER JOIN empresas e on o.empresas_id = e.empresas_id
+INNER JOIN clientes c on o.clientes_id = c.clientes_id;
+
+
+
+
+

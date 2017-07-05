@@ -17,9 +17,12 @@ class Empresas_model extends CI_Model
         return $this->db->error();
     }
 
-    public function empresas_todos_por_cuenta($cuentas_id = 0, $order_by = 'empresas_id')
+    public function empresas_todos_por_cuenta($cuentas_id = 0, $estatus = null, $order_by = 'empresas_id')
     {
         $res = array();
+        if (!is_null($estatus)){
+            $this->db->where('estatus', $estatus);
+        }
         $q = $this->db->where('cuentas_id', $cuentas_id)->order_by($order_by)->get('empresas');
         if ($q->num_rows() > 0) {
             $res = $q->result();

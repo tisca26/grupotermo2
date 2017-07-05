@@ -10,12 +10,12 @@ class Cliente
         $this->CI->load->model('clientes_model');
     }
 
-    public function clientes_por_cuenta($cuentas_id = 0, $order_by = 'clientes_id')
+    public function clientes_por_cuenta($cuentas_id = 0, $estatus = null, $order_by = 'clientes_id')
     {
         if (is_null($cuentas_id)) {
             $cuentas_id = 0;
         }
-        return $this->CI->clientes_model->clientes_todos_por_cuenta($cuentas_id, $order_by);
+        return $this->CI->clientes_model->clientes_todos_por_cuenta($cuentas_id, $estatus, $order_by);
     }
 
     public function cliente_por_id_y_cuenta($clientes_id = 0, $cuentas_id = 0)
@@ -39,7 +39,7 @@ class Cliente
         return $this->CI->clientes_model->editar($cliente);
     }
 
-    public function borrado_final($cliente  = array())
+    public function borrado_final($cliente = array())
     {
         return $this->CI->clientes_model->borrar($cliente);
     }

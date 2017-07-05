@@ -9,12 +9,12 @@ class Proveedor
         $this->CI->load->model('proveedores_model');
     }
 
-    public function proveedores_por_cuenta($cuentas_id = 0, $order_by = 'proveedores_id')
+    public function proveedores_por_cuenta($cuentas_id = 0, $estatus = null, $order_by = 'proveedores_id')
     {
         if (is_null($cuentas_id)) {
             $cuentas_id = 0;
         }
-        return $this->CI->proveedores_model->proveedores_todos_por_cuenta($cuentas_id, $order_by);
+        return $this->CI->proveedores_model->proveedores_todos_por_cuenta($cuentas_id, $estatus, $order_by);
     }
 
     public function proveedor_por_id_y_cuenta($proveedores_id = 0, $cuentas_id = 0)

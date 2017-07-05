@@ -116,7 +116,7 @@
                                                                     'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
                                                                 ]; ?>
                                                                 <?php echo form_input('nombre', set_value('nombre'), $data_nombre); ?>
-                                                                <span class="help-block">Nombrede la cliente</span>
+                                                                <span class="help-block">Nombre del cliente</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -189,7 +189,7 @@
                                                                 }
                                                                 ?>
                                                                 <?php echo form_dropdown('cat_estados_id', $estados_sel, '', $data_estados) ?>
-                                                                <span class="help-block"> Ubicación de la cliente </span>
+                                                                <span class="help-block"> Ubicación del cliente </span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -208,7 +208,7 @@
                                                                 ];
                                                                 ?>
                                                                 <?php echo form_dropdown('cat_municipios_id', array(), '', $data_municipio) ?>
-                                                                <span class="help-block"> Ubicación de la cliente </span>
+                                                                <span class="help-block"> Ubicación del cliente </span>
                                                             </div>
                                                         </div>
                                                     </div>

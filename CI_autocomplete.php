@@ -85,6 +85,7 @@
  * @property Group                          $group                  Lib para group
  * @property Lector_archivos                $lector_archivos        Lib de carga
  * @property Menu_manager                   $menu_manager           Lib para generar menu
+ * @property Obra                           $obra                   Lib obras
  * @property Proveedor                      $proveedor              Lib para proveedores
  * @property User                           $user                   Lib para usuarios
  ***************** YOUR MODELS *****************
@@ -92,11 +93,12 @@
  * @property Archivos_cargados_model        $archivos_cargados_model    Model de archivos cargados
  * @property Cat_ubicacion_model            $cat_ubicacion_model        Model de cat ubicaciones
  * @property Catalogos_model                $catalogos_model            Model de catalogos
- * @property Clientes_model                 $cliente_model              Model de cliente
+ * @property Clientes_model                 $clientes_model              Model de cliente
  * @property Ejemplo_carga_model            $ejemplo_carga_model        Model de ejemplo carga
  * @property Empresas_model                 $empresas_model             Model de empresas
  * @property Groups_model                   $groups_model               Model de groups
  * @property Menu_model                     $menu_model                 Model de Menu
+ * @property Obras_model                    $obras_model                Model de Obra
  * @property Proveedores_model              $proveedores_model          Model de proveedores
  * @property Resources_model                $resources_model            Model de recursos
  * @property Users_model                    $users_model                Model de usuarios
