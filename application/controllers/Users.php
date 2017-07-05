@@ -44,6 +44,7 @@ class Users extends Privy
             unset($usuario['repasswd']);
             $usuario['passwd'] = $this->_genera_contraseña($usuario['passwd']);
             $usuario['estatus'] = isset($usuario['estatus']) ? 1 : 0;
+            $usuario['cuentas_id'] = get_attr_session('usr_cuenta_id');
             if ($this->user->insertar_con_grupos($usuario, $grupos)) {
                 $msg = "El usuario se guardó con éxito, inserte otro o <strong><a href='" . base_url('users') . "'>vuela al inicio</a></strong>";
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_SUCCESS);
