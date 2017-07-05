@@ -13,8 +13,8 @@
     <title>Grupo Termo</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <meta content="Log In | Bill E Zone" name="description"/>
-    <meta content="" name="author"/>
+    <meta content="Log In | Grupo Termo" name="description"/>
+    <meta content="http://icognitis.com" name="author"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
           type="text/css"/>
@@ -388,7 +388,7 @@
     </form>
     <!-- END REGISTRATION FORM -->
 </div>
-<div class="copyright"> 2017 © Bill E Zone.</div>
+<div class="copyright"> 2017 © Grupo Termo.</div>
 <!--[if lt IE 9]>
 <script src="<?php echo cdn_assets(); ?>global/plugins/respond.min.js"></script>
 <script src="<?php echo cdn_assets(); ?>global/plugins/excanvas.min.js"></script>

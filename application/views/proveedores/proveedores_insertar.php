@@ -19,7 +19,8 @@
     <script src="<?php echo cdn_assets(); ?>global/plugins/pace/pace.min.js" type="text/javascript"></script>
     <!-- END PAGE FIRST SCRIPTS -->
     <!-- BEGIN PAGE TOP STYLES -->
-    <link href="<?php echo cdn_assets(); ?>global/plugins/pace/themes/pace-theme-big-counter.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo cdn_assets(); ?>global/plugins/pace/themes/pace-theme-big-counter.css" rel="stylesheet"
+          type="text/css"/>
     <!-- END PAGE TOP STYLES -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
@@ -30,8 +31,10 @@
           type="text/css"/>
     <link href="<?php echo cdn_assets(); ?>global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
           type="text/css"/>
-    <link href="<?php echo cdn_assets(); ?>global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php echo cdn_assets(); ?>global/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo cdn_assets(); ?>global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="<?php echo cdn_assets(); ?>global/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet"
+          type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="<?php echo cdn_assets(); ?>global/css/components.min.css" rel="stylesheet" id="style_components"
@@ -59,7 +62,7 @@
                     <div class="page-head">
                         <div class="container-fluid">
                             <div class="page-title">
-                                <h1>Menús</h1>
+                                <h1>Proveedores</h1>
                             </div>
                         </div>
                     </div>
@@ -71,11 +74,11 @@
                                     <i class="fa fa-circle"></i>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('menu'); ?>">Menús</a>
+                                    <a href="<?php echo base_url('proveedores'); ?>">Proveedores</a>
                                     <i class="fa fa-circle"></i>
                                 </li>
                                 <li>
-                                    <span>Agregar Menús</span>
+                                    <span>Agregar Proveedores</span>
                                 </li>
                             </ul>
                             <!-- --------------------------- INICIO CONTENIDO --------------------------- -->
@@ -86,13 +89,13 @@
                                             <div class="portlet-title">
                                                 <div class="caption">
                                                     <i class="icon-settings font-dark"></i>
-                                                    <span class="caption-subject font-dark sbold uppercase">Alta de Menús</span>
+                                                    <span class="caption-subject font-dark sbold uppercase">Alta de Proveedores</span>
                                                 </div>
                                             </div>
                                             <div class="portlet-body">
                                                 <?php echo get_bootstrap_alert(); ?>
                                                 <?php echo validation_errors("<div class='alert alert-danger'>", "</div>"); ?>
-                                                <?php echo form_open('menu/frm_insertar', array('class' => 'horizontal-form', 'id' => 'form1')); ?>
+                                                <?php echo form_open('proveedores/frm_insertar', array('class' => 'horizontal-form', 'id' => 'form1')); ?>
                                                 <div class="form-body">
                                                     <div class="alert alert-danger display-hide">
                                                         <button class="close" data-close="alert"></button>
@@ -105,7 +108,7 @@
                                                                     <span class="required"> * </span></label>
                                                                 <?php $data_nombre = [
                                                                     'id' => 'nombre',
-                                                                    'placeholder' => 'Nombre del menu',
+                                                                    'placeholder' => 'Nombre de la proveedor',
                                                                     'class' => 'form-control',
                                                                     'data-rule-required' => 'true',
                                                                     'data-msg-required' => 'Este campo es requerido',
@@ -113,36 +116,63 @@
                                                                     'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
                                                                 ]; ?>
                                                                 <?php echo form_input('nombre', set_value('nombre'), $data_nombre); ?>
-                                                                <span class="help-block">Nombre del nombre</span>
+                                                                <span class="help-block">Nombre del proveedor</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label">Descripción Corta
+                                                                <label class="control-label"> RFC
                                                                     <span class="required"> * </span></label>
-                                                                <?php $data_desc_cor = [
-                                                                    'id' => 'shortdesc',
-                                                                    'placeholder' => 'Descripción Corta',
+                                                                <?php $data_rfc = [
+                                                                    'id' => 'rfc',
+                                                                    'placeholder' => 'RFC',
                                                                     'class' => 'form-control',
                                                                     'data-rule-required' => 'true',
                                                                     'data-msg-required' => 'Este campo es requerido',
                                                                     'data-rule-minlength' => '3',
                                                                     'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
                                                                 ]; ?>
-                                                                <?php echo form_input('shortdesc', set_value('shortdesc'), $data_desc_cor); ?>
-                                                                <span class="help-block">Descripción corta del menú</span>
+                                                                <?php echo form_input('rfc', set_value('rfc'), $data_rfc); ?>
+                                                                <span class="help-block"> RFC </span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label class="control-label">Menú padre <span class="required"> * </span></label>
-                                                                <?php echo form_dropdown('parent_id', $menus, '', 'required class="selectpicker form-control" data-live-search="true" data-size="8" title=" - Seleccione -" data-live-search-normalize="true"')?>
-                                                                <span class="help-block"> Menú padre </span>
+                                                                <label class="control-label"> Contacto
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_contacto = [
+                                                                    'id' => 'contacto',
+                                                                    'placeholder' => 'Contacto',
+                                                                    'class' => 'form-control',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido',
+                                                                    'data-rule-minlength' => '3',
+                                                                    'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
+                                                                ]; ?>
+                                                                <?php echo form_input('contacto', set_value('contacto'), $data_contacto); ?>
+                                                                <span class="help-block"> Contacto </span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Teléfono
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_telefono = [
+                                                                    'id' => 'tel',
+                                                                    'placeholder' => 'Teléfono',
+                                                                    'class' => 'form-control',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido',
+                                                                    'data-rule-minlength' => '3',
+                                                                    'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
+                                                                ]; ?>
+                                                                <?php echo form_input('tel', set_value('tel'), $data_telefono); ?>
+                                                                <span class="help-block"> Teléfono </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label> Estatus </label>
                                                                 <div class="mt-checkbox-list">
@@ -157,82 +187,121 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="mt-radio-inline">
-                                                                <label class="mt-radio">
-                                                                    <input type="radio" name="radio_url" id="radio_res" value="0" checked> Enlace por recurso
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                            <label class="control-label">Recurso</label>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <?php echo form_dropdown('resource_id', $recursos, '', 'required id="resource_id" class="selectpicker form-control" data-live-search="true" data-size="8" title=" - Seleccione -" data-live-search-normalize="true"')?>
-                                                                    <span class="help-block"> Recurso asignado </span>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="input-group">
-                                                                        <span class="input-group-addon">
-                                                                            /
-                                                                        </span>
-                                                                        <input type="text" id="page_res" name="page_res" class="form-control" placeholder="Enlace adicional al recurso">
-                                                                    </div>
-                                                                </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Estado
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_estados = [
+                                                                    'id' => 'cat_estados_id',
+                                                                    'class' => 'form-control selectpicker',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido',
+                                                                    'data-live-search' => "true",
+                                                                    'data-size' => '5',
+                                                                    'title' => '- Seleccione -',
+                                                                    'data-live-search-normalize' => "true"
+                                                                ];
+                                                                $estados_sel = array();
+                                                                foreach ($estados as $estado) {
+                                                                    $estados_sel[$estado->cat_estados_id] = $estado->descripcion;
+                                                                }
+                                                                ?>
+                                                                <?php echo form_dropdown('cat_estados_id', $estados_sel, '', $data_estados) ?>
+                                                                <span class="help-block"> Ubicación del proveedor </span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="mt-radio-inline">
-                                                                <label class="mt-radio">
-                                                                    <input type="radio" name="radio_url" id="radio_url" value="1"> Enlace personalizado
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
                                                             <div class="form-group">
-                                                                <label class="control-label"> Enlace estándar </label>
-                                                                <?php $data_enlace_estandar = [
-                                                                    'id' => 'page_uri',
-                                                                    'placeholder' => 'Enlace estándar del recurso',
-                                                                    'class' => 'form-control'
-                                                                ]; ?>
-                                                                <?php echo form_input('page_uri', set_value('page_uri'), $data_enlace_estandar); ?>
-                                                                <span class="help-block"> Enlace personalizado para el menú </span>
+                                                                <label class="control-label"> Municipio
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_municipio = [
+                                                                    'id' => 'cat_municipios_id',
+                                                                    'class' => 'form-control selectpicker',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido',
+                                                                    'data-live-search' => "true",
+                                                                    'data-size' => '5',
+                                                                    'title' => '- Seleccione -',
+                                                                    'data-live-search-normalize' => "true"
+                                                                ];
+                                                                ?>
+                                                                <?php echo form_dropdown('cat_municipios_id', array(), '', $data_municipio) ?>
+                                                                <span class="help-block"> Ubicación del proveedor </span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label"> Orden
+                                                                <label class="control-label"> Banco
                                                                     <span class="required"> * </span></label>
-                                                                <?php $data_orden = [
-                                                                    'id' => 'orden',
-                                                                    'placeholder' => 'Orden del menú',
-                                                                    'class' => 'form-control',
+                                                                <?php $data_bancos = [
+                                                                    'id' => 'cat_bancos_id',
+                                                                    'class' => 'form-control selectpicker',
                                                                     'data-rule-required' => 'true',
                                                                     'data-msg-required' => 'Este campo es requerido',
-                                                                    'data-rule-digits' => 'true',
-                                                                    'data-msg-digits' => 'Este campo solo aceptá dígitos'
-                                                                ]; ?>
-                                                                <?php echo form_input('orden', set_value('orden'), $data_orden); ?>
-                                                                <span class="help-block">Orden del menú</span>
+                                                                    'data-live-search' => "true",
+                                                                    'data-size' => '5',
+                                                                    'title' => '- Seleccione -',
+                                                                    'data-live-search-normalize' => "true"
+                                                                ];
+                                                                $bancos_sel = array();
+                                                                foreach ($bancos as $banco) {
+                                                                    $bancos_sel[$banco->cat_bancos_id] = $banco->nombre_corto;
+                                                                }
+                                                                ?>
+                                                                <?php echo form_dropdown('cat_bancos_id', $bancos_sel, '', $data_bancos) ?>
+                                                                <span class="help-block"> Banco del proveedor </span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label"> Ícono </label>
-                                                                <?php $data_icono = [
-                                                                    'id' => 'icon',
-                                                                    'placeholder' => 'Ícono del menú',
-                                                                    'class' => 'form-control'
+                                                                <label class="control-label"> Sucursal </label>
+                                                                <?php $data_sucursal = [
+                                                                    'id' => 'sucursal',
+                                                                    'placeholder' => 'Sucursal',
+                                                                    'class' => 'form-control',
+                                                                    'data-rule-minlength' => '3',
+                                                                    'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
                                                                 ]; ?>
-                                                                <?php echo form_input('icon', set_value('icon'), $data_icono); ?>
-                                                                <span class="help-block">Ícono del menú</span>
+                                                                <?php echo form_input('sucursal', set_value('sucursal'), $data_sucursal); ?>
+                                                                <span class="help-block"> Sucursal </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> No. de Cuenta </label>
+                                                                <?php $data_cuenta = [
+                                                                    'id' => 'cuenta',
+                                                                    'placeholder' => 'No. de Cuenta',
+                                                                    'class' => 'form-control',
+                                                                    'data-rule-minlength' => '3',
+                                                                    'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
+                                                                ]; ?>
+                                                                <?php echo form_input('cuenta', set_value('cuenta'), $data_cuenta); ?>
+                                                                <span class="help-block"> No. de Cuenta del proveedor </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Clabe </label>
+                                                                <?php $data_clabe = [
+                                                                    'id' => 'clabe',
+                                                                    'placeholder' => 'Clabe',
+                                                                    'class' => 'form-control',
+                                                                    'data-rule-minlength' => '3',
+                                                                    'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
+                                                                ]; ?>
+                                                                <?php echo form_input('clabe', set_value('clabe'), $data_clabe); ?>
+                                                                <span class="help-block"> Clabe del proveedor </span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-actions right">
                                                     <a type="button" class="btn default"
-                                                       href="<?php echo base_url('menu'); ?>">Cancelar</a>
+                                                       href="<?php echo base_url('proveedores'); ?>">Cancelar</a>
                                                     <button type="submit" class="btn blue">
                                                         <i class="fa fa-check"></i> Guardar
                                                     </button>
@@ -283,7 +352,8 @@
         type="text/javascript"></script>
 <script src="<?php echo cdn_assets(); ?>global/plugins/jquery-validation/js/additional-methods.min.js"
         type="text/javascript"></script>
-<script src="<?php echo cdn_assets(); ?>global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
+<script src="<?php echo cdn_assets(); ?>global/plugins/bootstrap-select/js/bootstrap-select.min.js"
+        type="text/javascript"></script>
 <!-- END PAGE LEVEL -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="<?php echo cdn_assets(); ?>global/scripts/app.min.js" type="text/javascript"></script>
@@ -294,28 +364,24 @@
 <script src="<?php echo cdn_assets(); ?>layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
-    function valida_radio_enlace () {
-        if ($('#radio_res').is(':checked')) {
-            $('#page_uri').prop('disabled', true);
-            $('#resource_id').prop('disabled', false);
-            $('#page_res').prop('disabled', false);
-            $('.selectpicker').selectpicker('refresh');
-        }
-        if ($('#radio_url').is(':checked')) {
-            $('#page_uri').prop('disabled', false);
-            $('#resource_id').prop('disabled', true);
-            $('#page_res').prop('disabled', true);
-            $('.selectpicker').selectpicker('refresh');
-        }
-    };
     $(document).ready(function () {
-        valida_radio_enlace();
-        $("input[name=radio_url]:radio").change(function () {
-            valida_radio_enlace();
-        });
-        $('.bs-select').selectpicker({
-            iconBase: 'fa',
-            tickIcon: 'fa-check'
+        $('#cat_estados_id').on('change', function(){
+            var selected = $(this).find("option:selected").val();
+            var my_url = "<?php echo base_url('proveedores/municipios_por_estado/'); ?>" + selected;
+            $.get(
+                my_url
+            ).done(function (data) {
+                var $select = $('#cat_municipios_id');
+                $select.empty();
+                for (var idx in data) {
+                    $select.append(
+                        $("<option>").attr("value", data[idx].cat_municipios_id).text(data[idx].descripcion)
+                    );
+                }
+                $('.selectpicker').selectpicker('refresh');
+            }).fail(function () {
+                alert("Error al obtener los estados");
+            });
         });
         var form1 = $('#form1');
         var error1 = $('.alert-danger', form1);
@@ -343,7 +409,7 @@
                     error.insertAfter(element.parent(".input-group"));
                 } else if (element.attr("data-error-container")) {
                     error.appendTo(element.attr("data-error-container"));
-                }else if (element.hasClass('selectpicker')){
+                } else if (element.hasClass('selectpicker')) {
                     // no se coloca el mensaje de error
                 } else {
                     error.insertAfter(element); // for other inputs, just perform default behavior

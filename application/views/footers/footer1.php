@@ -2,7 +2,7 @@
     <!-- BEGIN FOOTER -->
     <!-- BEGIN INNER FOOTER -->
     <div class="page-footer">
-        <div class="container"> 2017 &copy; Bill E Zone - Contabilidad Electrónica | Por
+        <div class="container"> 2017 &copy; Grupo Termo - Mejorando la Construcción | Por
             <a target="_blank" href="http://icognitis.com">Icognitis</a> &nbsp;
         </div>
     </div>
