@@ -51,4 +51,24 @@ class Obras_model extends CI_Model
     {
         return $this->db->delete('obras', $obra);
     }
+
+    public function insertar_archivo($data = array())
+    {
+        return $this->db->insert('obras_archivos', $data);
+    }
+
+    public function archivos_por_obra_id($obras_id = 0)
+    {
+        return $this->db->where('obras_id', $obras_id)->get('obras_archivos')->result();
+    }
+
+    public function obras_archivo_por_id($archivo_id = 0)
+    {
+        return $this->db->where('obras_archivos_id', $archivo_id)->get('obras_archivos')->row();
+    }
+
+    public function obra_por_id_simple($id = 0)
+    {
+        return $this->db->where('obras_id', $id)->get('obras')->row();
+    }
 }

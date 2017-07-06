@@ -37,6 +37,8 @@
           type="text/css"/>
     <link href="<?php echo cdn_assets(); ?>global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"
           rel="stylesheet" type="text/css"/>
+    <link href="<?php echo cdn_assets(); ?>global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet"
+          type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="<?php echo cdn_assets(); ?>global/css/components.min.css" rel="stylesheet" id="style_components"
@@ -97,7 +99,7 @@
                                             <div class="portlet-body">
                                                 <?php echo get_bootstrap_alert(); ?>
                                                 <?php echo validation_errors("<div class='alert alert-danger'>", "</div>"); ?>
-                                                <?php echo form_open('obras/frm_editar', array('class' => 'horizontal-form', 'id' => 'form1')); ?>
+                                                <?php echo form_open_multipart('obras/frm_editar', array('class' => 'horizontal-form', 'id' => 'form1')); ?>
                                                 <?php echo form_hidden('obras_id', $obra->obras_id); ?>
                                                 <div class="form-body">
                                                     <div class="alert alert-danger display-hide">
@@ -267,6 +269,57 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Observaciones </label>
+                                                                <?php echo form_textarea('observaciones', $obra->observaciones, 'id="observaciones" class="form-control"'); ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Archivos
+                                                                    cargados: </label>
+                                                                <?php if (count($obra->archivos) == 0): ?>
+                                                                    <label class="control-label"> Sin archivos </label>
+                                                                <?php else: ?>
+                                                                    <ol>
+                                                                        <?php foreach ($obra->archivos as $archivo): ?>
+                                                                            <li><a class="text-muted" target="_blank" href="<?php echo base_url('obras/ver_archivo/' . $archivo->obras_archivos_id)?>"> <?php echo $archivo->nombre; ?></a></li>
+                                                                        <?php endforeach; ?>
+                                                                    </ol>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Archivo </label>
+                                                                <br>
+                                                                <div class="fileinput fileinput-new"
+                                                                     data-provides="fileinput">
+                                                                    <div class="input-group input-large">
+                                                                        <div class="form-control uneditable-input input-fixed input-medium"
+                                                                             data-trigger="fileinput">
+                                                                            <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                                                            <span class="fileinput-filename"> </span>
+                                                                        </div>
+                                                                        <span class="input-group-addon btn default btn-file">
+                                                                                    <span class="fileinput-new"> Seleccione archivo </span>
+                                                                                    <span class="fileinput-exists"> Cambiar </span>
+                                                                                    <input type="file" name="obras_file"
+                                                                                           accept="application/pdf"> </span>
+                                                                        <a href="javascript:;"
+                                                                           class="input-group-addon btn red fileinput-exists"
+                                                                           data-dismiss="fileinput"> Eliminar </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="form-actions right">
                                                     <a type="button" class="btn default"
@@ -326,6 +379,8 @@
 <script src="<?php echo cdn_assets(); ?>global/plugins/jquery-validation/js/additional-methods.min.js"
         type="text/javascript"></script>
 <script src="<?php echo cdn_assets(); ?>global/plugins/bootstrap-select/js/bootstrap-select.min.js"
+        type="text/javascript"></script>
+<script src="<?php echo cdn_assets(); ?>global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"
         type="text/javascript"></script>
 <!-- END PAGE LEVEL -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->

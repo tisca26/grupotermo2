@@ -3111,6 +3111,7 @@ CREATE TABLE IF NOT EXISTS `obras` (
   `cuentas_id` INT NOT NULL DEFAULT 0,
   `fecha_creacion` DATETIME DEFAULT   CURRENT_TIMESTAMP,
   `fecha_edicion` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  `observaciones` TEXT NULL,
   PRIMARY KEY (`obras_id`),
   INDEX `obras_empresas_idx` (`empresas_id` ASC),
   INDEX `obras_clientes_idx` (`clientes_id` ASC),
@@ -3120,12 +3121,23 @@ CREATE TABLE IF NOT EXISTS `obras` (
   INDEX `obras_cuentas_idx` (`cuentas_id` ASC))
 ENGINE = InnoDB;
 
+
+
 CREATE OR REPLACE VIEW v_obras AS 
 SELECT o.*, e.nombre as nombre_empresa, c.nombre as nombre_cliente
 FROM obras o
 INNER JOIN empresas e on o.empresas_id = e.empresas_id
 INNER JOIN clientes c on o.clientes_id = c.clientes_id;
 
+
+CREATE TABLE IF NOT EXISTS `obras_archivos` (
+  `obras_archivos_id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NULL,
+  `fecha_creacion` DATETIME NULL,
+  `obras_id` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`obras_archivos_id`),
+  INDEX `obras_archivos_obras_idx` (`obras_id` ASC))
+ENGINE = InnoDB;
 
 
 

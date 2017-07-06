@@ -7,7 +7,7 @@ class Obras extends Privy
     public function __construct()
     {
         parent::__construct();
-        $this->set_read_list(array('index', 'municipios_por_estado'));
+        $this->set_read_list(array('index', 'municipios_por_estado', 'ver_archivo'));
         $this->set_insert_list(array('insertar', 'frm_insertar'));
         $this->set_update_list(array('editar', 'frm_editar'));
         $this->set_delete_list(array('borrar', 'borrado_final'));
@@ -58,6 +58,29 @@ class Obras extends Privy
             if ($this->obra->insertar($obra)) {
                 $msg = "La obra se guardó con éxito, inserte otro o <strong><a href='" . base_url('obras') . "'>vuela al inicio</a></strong>";
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_SUCCESS);
+                if ($_FILES AND $_FILES['obras_file']['name']) {
+                    $this->load->library('upload');
+                    $nombre_archivo = 'obras_id_' . $this->obra->ultimo_id() . '_' . get_attr_session('usr_username') . '_' . date('Y-m-d_H_i_s');
+                    $config['upload_path'] = RUTA_DOCS_USR . 'obras/';
+                    $config['allowed_types'] = 'pdf';
+                    $config['file_name'] = $nombre_archivo;
+                    $this->upload->initialize($config);
+
+                    if (!$this->upload->do_upload('obras_file')) {
+                        $msg = $this->upload->display_errors();
+                        set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
+                        redirect('obras/editar/' . $this->obra->ultimo_id());
+                    } else {
+                        $atributos_archivo = $this->upload->data();
+                        $guarda_info_carga['nombre'] = $atributos_archivo['file_name'];
+                        $guarda_info_carga['obras_id'] = $this->obra->ultimo_id();
+                        if (!$this->obra->insertar_archivo($guarda_info_carga)) {
+                            $msg = 'Error al guardar el archivo';
+                            set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
+                            redirect('obras/editar/' . $this->obra->ultimo_id());
+                        }
+                    }
+                }
             } else {
                 $msg = "Error al guardar la obra, intente nuevamente";
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
@@ -95,11 +118,34 @@ class Obras extends Privy
         } else {
             $obra = $this->input->post();
             $obra['estatus'] = isset($obra['estatus']) ? 1 : 0;
-            if ($this->obra->editar($obra)){
+            if ($this->obra->editar($obra)) {
                 $msg = "La obra se guardó con éxito";
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_SUCCESS);
+                if ($_FILES AND $_FILES['obras_file']['name']) {
+                    $this->load->library('upload');
+                    $nombre_archivo = 'obras_id_' . $obra['obras_id'] . '_' . get_attr_session('usr_username') . '_' . date('Y-m-d_H_i_s');
+                    $config['upload_path'] = RUTA_DOCS_USR . 'obras/';
+                    $config['allowed_types'] = 'pdf';
+                    $config['file_name'] = $nombre_archivo;
+                    $this->upload->initialize($config);
+
+                    if (!$this->upload->do_upload('obras_file')) {
+                        $msg = $this->upload->display_errors();
+                        set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
+                        redirect('obras/editar/' . $obra['obras_id']);
+                    } else {
+                        $atributos_archivo = $this->upload->data();
+                        $guarda_info_carga['nombre'] = $atributos_archivo['file_name'];
+                        $guarda_info_carga['obras_id'] = $obra['obras_id'];
+                        if (!$this->obra->insertar_archivo($guarda_info_carga)) {
+                            $msg = 'Error al guardar el archivo';
+                            set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
+                            redirect('obras/editar/' . $obra['obras_id']);
+                        }
+                    }
+                }
                 redirect('obras');
-            }else{
+            } else {
                 $msg = "Error al guardar la obra.";
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_SUCCESS);
                 redirect('obras/' . $obra['obras_id']);
@@ -120,5 +166,23 @@ class Obras extends Privy
             set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
         }
         redirect('obras');
+    }
+
+    public function ver_archivo($archivo_id = 0)
+    {
+        if (!valid_id($archivo_id)) {
+            redirect('obras');
+        }
+        $archivo = $this->obra->obras_archivo_por_id($archivo_id);
+        if (!is_null($archivo)) {
+            if ($this->obra->es_archivo_de_cuenta($archivo, get_attr_session('usr_cuenta_id'))) {
+                $this->load->helper('download');
+                force_download(RUTA_DOCS_USR . 'obras/' . $archivo->nombre, null, true);
+            } else {
+                redirect('mensajes_sys/denegado');
+            }
+        } else {
+            redirect('obras');
+        }
     }
 }
