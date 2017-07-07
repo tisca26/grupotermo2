@@ -3140,5 +3140,64 @@ CREATE TABLE IF NOT EXISTS `obras_archivos` (
 ENGINE = InnoDB;
 
 
+CREATE TABLE IF NOT EXISTS `cat_unidades` (
+  `cat_unidades_id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL,
+  `descripcion` VARCHAR(60) NULL,
+  `estatus` INT(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`cat_unidades_id`))
+ENGINE = InnoDB;
 
+INSERT INTO `cat_unidades` (`cat_unidades_id`, `nombre`, `descripcion`, `estatus`) VALUES
+(1, 'mm', 'Milímetro', 1),
+(2, 'cm', 'Centímetro', 1),
+(3, 'dm', 'Decímetro', 1),
+(4, 'm', 'Metro', 1),
+(5, 'dam', 'Decámetro', 1),
+(6, 'hm', 'Hectómetro', 1),
+(7, 'km', 'Kilómetro', 1),
+(8, 'mam', 'Miriámetro', 1),
+(9, 'mm2', 'Milímetro Cuadrado', 1),
+(10, 'cm2', 'Centímetro Cuadrado', 1),
+(11, 'dm2', 'Decímetro Cuadrado', 1),
+(12, 'm2', 'Metro Cuadrado', 1),
+(13, 'dam2', 'Decámetro Cuadrado', 1),
+(14, 'hm2', 'Hectómetro Cuadrado', 1),
+(15, 'km2', 'Kilómetro Cuadrado', 1),
+(16, 'mam2', 'Miriámetro Cuadrado', 1),
+(17, 'mm3', 'Milímetro cúbico', 1),
+(18, 'cm3', 'Centímetro cúbico', 1),
+(19, 'dm3', 'Decímetro cúbico', 1),
+(20, 'm3', 'Metro cúbico', 1),
+(21, 'dm3', 'Decámetro cúbico', 1),
+(22, 'hm3', 'Hectómetro cúbico', 1),
+(23, 'km3', 'Kilómetro cúbico', 1),
+(24, 'ml', 'Mililitro', 1),
+(25, 'cl', 'Centilitro', 1),
+(26, 'dl', 'Decilitro', 1),
+(27, 'l', 'Litro', 1),
+(28, 'dl', 'Decalito', 1),
+(29, 'hl', 'Hectolitro', 1),
+(30, 'kl', 'Kilolitro', 1),
+(31, 'mg', 'Milígramo', 1),
+(32, 'cg', 'Centigramo', 1),
+(33, 'g', 'Gramo', 1),
+(34, 'dg', 'Decagramo', 1),
+(35, 'Hg', 'Hectogramo', 1),
+(36, 'Kg', 'Kilogramo', 1),
+(37, 'Q', 'Quintales', 1),
+(38, 'Tn', 'Toneladas', 1),
+(39, 'Servicio', 'Servicio', 1),
+(40, 'Unidad', 'Unidad', 1);
 
+CREATE TABLE IF NOT EXISTS `materiales` (
+  `materiales_id` INT NOT NULL AUTO_INCREMENT,
+  `clave` VARCHAR(45) NULL,
+  `descripcion` VARCHAR(250) NULL,
+  `nombre` VARCHAR(60) NULL,
+  `cat_unidades_id` INT NOT NULL DEFAULT 0,
+  `cuentas_id` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`materiales_id`),
+  INDEX `materiales_unidades_idx` (`cat_unidades_id` ASC),
+  INDEX `materiales_cuentas_idx` (`cuentas_id` ASC))
+ENGINE = InnoDB;

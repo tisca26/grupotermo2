@@ -26,4 +26,9 @@ class Catalogos_model extends CI_Model
         }
         return $res;
     }
+
+    public function unidades_todos($order_by = 'cat_unidades_id')
+    {
+        return $this->db->order_by($order_by)->get('cat_unidades')->result();
+    }
 }

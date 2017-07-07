@@ -14,4 +14,9 @@ class Catalogo
     {
         return $this->CI->catalogos_model->bancos_todos($order_by);
     }
+
+    public function unidades_todo($order_by = 'cat_unidades_id')
+    {
+        return $this->CI->catalogos_model->unidades_todos($order_by);
+    }
 }
