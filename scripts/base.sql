@@ -3190,14 +3190,105 @@ INSERT INTO `cat_unidades` (`cat_unidades_id`, `nombre`, `descripcion`, `estatus
 (39, 'Servicio', 'Servicio', 1),
 (40, 'Unidad', 'Unidad', 1);
 
-CREATE TABLE IF NOT EXISTS `materiales` (
-  `materiales_id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `materiales_servicios` (
+  `materiales_servicios_id` INT NOT NULL AUTO_INCREMENT,
   `clave` VARCHAR(45) NULL,
-  `descripcion` VARCHAR(250) NULL,
   `nombre` VARCHAR(60) NULL,
-  `cat_unidades_id` INT NOT NULL DEFAULT 0,
+  `descripcion` VARCHAR(250) NULL,
+  `tipo` INT(1) NOT NULL DEFAULT 0,
   `cuentas_id` INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`materiales_id`),
-  INDEX `materiales_unidades_idx` (`cat_unidades_id` ASC),
-  INDEX `materiales_cuentas_idx` (`cuentas_id` ASC))
+  PRIMARY KEY (`materiales_servicios_id`),
+  INDEX `materiales_cuentas_idx` (`cuentas_id` ASC),
+  INDEX `materiales_tipo_idx` (`tipo` ASC))
 ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `camiones` (
+  `camiones_id` INT NOT NULL AUTO_INCREMENT,
+  `placa` VARCHAR(10) NOT NULL,
+  `nombre_chofer` VARCHAR(200) NULL,
+  `capacidad` DECIMAL(12,2) NOT NULL DEFAULT 0,
+  `fecha_cubicacion` DATE NULL,
+  `proveedores_id` INT NOT NULL DEFAULT 0,
+  `estatus` INT(1) NOT NULL DEFAULT 1,
+  `fecha_creacion` DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  `fecha_edicion` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  `cuentas_id` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`camiones_id`),
+  INDEX `camiones_placa_idx` (`placa` ASC),
+  INDEX `camiones_proveedores_idx` (`proveedores_id` ASC),
+  INDEX `camiones_estatus_idx` (`estatus` ASC),
+  INDEX `camiones_cuenta_idx` (`cuentas_id` ASC))
+ENGINE = InnoDB;
+
+CREATE OR REPLACE VIEW v_camiones AS
+SELECT c.*, p.nombre as proveedor_nombre, p.estatus as proveedor_estatus
+FROM camiones c
+INNER JOIN proveedores p ON c.proveedores_id = p.proveedores_id;
+
+CREATE TABLE IF NOT EXISTS `materiales_acarreos` (
+  `materiales_acarreos_id` INT NOT NULL AUTO_INCREMENT,
+  `materiales_servicios_id` INT NOT NULL DEFAULT 0,
+  `cat_unidades_id` INT NOT NULL DEFAULT 0,
+  `costo` DECIMAL(12,2) NOT NULL DEFAULT 0,
+  `ubicacion` VARCHAR(100) NULL,
+  `proveedores_id` INT NOT NULL DEFAULT 0,
+  `distancia_obra` DECIMAL(12,2) NOT NULL DEFAULT 0,
+  `obras_id` INT NOT NULL DEFAULT 0,
+  `cuentas_id` INT NOT NULL DEFAULT 0,
+  `fecha_creacion` DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  `fecha_edicion` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`materiales_acarreos_id`),
+  INDEX `mat_acarreos_mat_serv_idx` (`materiales_servicios_id` ASC),
+  INDEX `mat_acarreos_unidades_idx` (`cat_unidades_id` ASC),
+  INDEX `mat_acarreos_proveedores_idx` (`proveedores_id` ASC),
+  INDEX `mat_acarreos_cuentas_idx` (`cuentas_id` ASC),
+  INDEX `mat_acarreos_obras_idx` (`obras_id` ASC))
+ENGINE = InnoDB;
+
+CREATE OR REPLACE VIEW v_materiales_acarreos AS
+SELECT ma.*, ms.clave as material_clave, ms.nombre as material_nombre, ms.tipo as material_tipo, p.nombre as proveedor_nombre, p.estatus as proveedor_estatus, o.nombre as obra_nombre, o.estatus as obra_estatus, cu.nombre as unidad_nombre
+FROM materiales_acarreos ma
+INNER JOIN materiales_servicios ms ON ma.materiales_servicios_id = ms.materiales_servicios_id
+INNER JOIN proveedores p ON ma.proveedores_id = p.proveedores_id
+INNER JOIN obras o ON ma.obras_id = o.obras_id
+INNER JOIN cat_unidades cu ON ma.cat_unidades_id = cu.cat_unidades_id;
+
+CREATE TABLE IF NOT EXISTS `tarifas_acarreos` (
+  `tarifas_acarreos_id` INT NOT NULL AUTO_INCREMENT,
+  `obras_id` INT NOT NULL DEFAULT 0,
+  `proveedores_id` INT NOT NULL DEFAULT 0,
+  `primer_kilometro` DECIMAL(12,2) NOT NULL DEFAULT 0,
+  `kilometros_subsecuentes` DECIMAL(12,2) NOT NULL DEFAULT 0,
+  `interno` DECIMAL(12,2) NOT NULL DEFAULT 0,
+  `cuentas_id` INT NOT NULL DEFAULT 0,
+  `fecha_creacion` DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  `fecha_edicion` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`tarifas_acarreos_id`),
+  INDEX `tarifas_acarreos_obras_idx` (`obras_id` ASC),
+  INDEX `tarifas_acarreos_proveedores_idx` (`proveedores_id` ASC),
+  INDEX `tarifas_acarreos_cuentas_idx` (`cuentas_id` ASC))
+ENGINE = InnoDB;
+
+CREATE OR REPLACE VIEW v_tarifas_acarreos AS
+SELECT ta.*, p.nombre as proveedor_nombre, p.estatus as proveedor_estatus, o.nombre as obra_nombre, o.estatus as obra_estatus
+FROM tarifas_acarreos ta
+INNER JOIN proveedores p ON ta.proveedores_id = p.proveedores_id
+INNER JOIN obras o ON ta.obras_id = o.obras_id;
+
+CREATE TABLE IF NOT EXISTS `zonas` (
+  `zonas_id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(150) NULL,
+  `obras_id` INT NOT NULL DEFAULT 0,
+  `cuentas_id` INT NOT NULL DEFAULT 0,
+  `fecha_creacion` DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  `fecha_edicion` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`zonas_id`),
+  INDEX `zonas_obras_idx` (`obras_id` ASC),
+  INDEX `zonas_cuenta_idx` (`cuentas_id` ASC))
+ENGINE = InnoDB;
+
+
+CREATE OR REPLACE VIEW v_zonas AS
+SELECT z.*, o.nombre as obra_nombre, o.estatus as obra_estatus
+FROM zonas z
+INNER JOIN obras o ON z.obras_id = o.obras_id;

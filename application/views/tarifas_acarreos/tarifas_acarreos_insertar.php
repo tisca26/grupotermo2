@@ -62,7 +62,7 @@
                     <div class="page-head">
                         <div class="container-fluid">
                             <div class="page-title">
-                                <h1>Materiales y Servicios</h1>
+                                <h1>Materiales</h1>
                             </div>
                         </div>
                     </div>
@@ -74,11 +74,11 @@
                                     <i class="fa fa-circle"></i>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('materiales'); ?>">Materiales y Servicios</a>
+                                    <a href="<?php echo base_url('tarifas_acarreos'); ?>">Tarifas</a>
                                     <i class="fa fa-circle"></i>
                                 </li>
                                 <li>
-                                    <span>Editar Materiales y Servicios</span>
+                                    <span>Agregar Tarifas</span>
                                 </li>
                             </ul>
                             <!-- --------------------------- INICIO CONTENIDO --------------------------- -->
@@ -89,60 +89,25 @@
                                             <div class="portlet-title">
                                                 <div class="caption">
                                                     <i class="icon-settings font-dark"></i>
-                                                    <span class="caption-subject font-dark sbold uppercase">Alta de Materiales y Servicios</span>
+                                                    <span class="caption-subject font-dark sbold uppercase">Alta de Tarifas</span>
                                                 </div>
                                             </div>
                                             <div class="portlet-body">
                                                 <?php echo get_bootstrap_alert(); ?>
                                                 <?php echo validation_errors("<div class='alert alert-danger'>", "</div>"); ?>
-                                                <?php echo form_open('materiales/frm_editar', array('class' => 'horizontal-form', 'id' => 'form1')); ?>
-                                                <?php echo form_hidden('materiales_id', $material->materiales_id);?>
+                                                <?php echo form_open('tarifas_acarreos/frm_insertar', array('class' => 'horizontal-form', 'id' => 'form1')); ?>
                                                 <div class="form-body">
                                                     <div class="alert alert-danger display-hide">
                                                         <button class="close" data-close="alert"></button>
                                                         Tiene errores en su formulario
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label"> Clave
+                                                                <label class="control-label"> Obra
                                                                     <span class="required"> * </span></label>
-                                                                <?php $data_clave = [
-                                                                    'id' => 'clave',
-                                                                    'placeholder' => 'Clave del material o servicio',
-                                                                    'class' => 'form-control',
-                                                                    'data-rule-required' => 'true',
-                                                                    'data-msg-required' => 'Este campo es requerido',
-                                                                    'data-rule-minlength' => '3',
-                                                                    'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
-                                                                ]; ?>
-                                                                <?php echo form_input('clave', set_value('clave', $material->clave), $data_clave); ?>
-                                                                <span class="help-block"> Clave del material o servicio </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label"> Nombre
-                                                                    <span class="required"> * </span></label>
-                                                                <?php $data_nombre = [
-                                                                    'id' => 'nombre',
-                                                                    'placeholder' => 'Nombre del material o servicio',
-                                                                    'class' => 'form-control',
-                                                                    'data-rule-required' => 'true',
-                                                                    'data-msg-required' => 'Este campo es requerido',
-                                                                    'data-rule-minlength' => '3',
-                                                                    'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
-                                                                ]; ?>
-                                                                <?php echo form_input('nombre', set_value('nombre', $material->nombre), $data_nombre); ?>
-                                                                <span class="help-block"> Nombre del material  o servicio </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label"> Unidad
-                                                                    <span class="required"> * </span></label>
-                                                                <?php $data_unidades = [
-                                                                    'id' => 'cat_unidades_id',
+                                                                <?php $data_obras = [
+                                                                    'id' => 'obras_id',
                                                                     'class' => 'form-control selectpicker',
                                                                     'data-rule-required' => 'true',
                                                                     'data-msg-required' => 'Este campo es requerido',
@@ -151,39 +116,96 @@
                                                                     'title' => '- Seleccione -',
                                                                     'data-live-search-normalize' => "true"
                                                                 ];
-                                                                $unidades_sel = array();
-                                                                foreach ($unidades as $unidad) {
-                                                                    $unidades_sel[$unidad->cat_unidades_id] = $unidad->nombre;
+                                                                $obras_sel = array();
+                                                                foreach ($obras as $obra) {
+                                                                    $obras_sel[$obra->obras_id] = $obra->nombre;
                                                                 }
                                                                 ?>
-                                                                <?php echo form_dropdown('cat_unidades_id', $unidades_sel, $material->cat_unidades_id, $data_unidades) ?>
-                                                                <span class="help-block"> Unidades del material o servicio </span>
+                                                                <?php echo form_dropdown('obras_id', $obras_sel, '', $data_obras) ?>
+                                                                <span class="help-block"> Obra relacionada </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Proveedor
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_proveedor = [
+                                                                    'id' => 'proveedores_id',
+                                                                    'class' => 'form-control selectpicker',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido',
+                                                                    'data-live-search' => "true",
+                                                                    'data-size' => '5',
+                                                                    'title' => '- Seleccione -',
+                                                                    'data-live-search-normalize' => "true"
+                                                                ];
+                                                                $proveedores_sel = array();
+                                                                foreach ($proveedores as $proveedor) {
+                                                                    $proveedores_sel[$proveedor->proveedores_id] = $proveedor->nombre;
+                                                                }
+                                                                ?>
+                                                                <?php echo form_dropdown('proveedores_id', $proveedores_sel, '', $data_proveedor) ?>
+                                                                <span class="help-block"> Proveedor </span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label class="control-label"> Descripción
+                                                                <label class="control-label"> Costo Primer Km
                                                                     <span class="required"> * </span></label>
-                                                                <?php $data_descripcion = [
-                                                                    'id' => 'descripcion',
-                                                                    'placeholder' => 'Descripción del material o servicio',
+                                                                <?php $data_primer_km = [
+                                                                    'id' => 'primer_kilometro',
+                                                                    'placeholder' => 'Costo Primer Km',
                                                                     'class' => 'form-control',
                                                                     'data-rule-required' => 'true',
                                                                     'data-msg-required' => 'Este campo es requerido',
-                                                                    'data-rule-minlength' => '3',
-                                                                    'data-msg-minlength' => 'Mínimo debe tener {0} caracteres'
+                                                                    'data-rule-number' => 'true',
+                                                                    'data-msg-number' => 'Este campo debe ser numérico'
                                                                 ]; ?>
-                                                                <?php echo form_input('descripcion', set_value('descripcion', $material->descripcion), $data_descripcion); ?>
-                                                                <span class="help-block"> Descripción del material  o servicio </span>
+                                                                <?php echo form_input('primer_kilometro', set_value('primer_kilometro'), $data_primer_km); ?>
+                                                                <span class="help-block"> Costo primer km </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Costo Km Subsecuente
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_km_sub = [
+                                                                    'id' => 'kilometros_subsecuentes',
+                                                                    'placeholder' => 'Costo Km subsecuente',
+                                                                    'class' => 'form-control',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido',
+                                                                    'data-rule-number' => 'true',
+                                                                    'data-msg-number' => 'Este campo debe ser numérico'
+                                                                ]; ?>
+                                                                <?php echo form_input('kilometros_subsecuentes', set_value('kilometros_subsecuentes'), $data_km_sub); ?>
+                                                                <span class="help-block"> Costo km subsecuente </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Costo Km Interno
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_km_interno = [
+                                                                    'id' => 'interno',
+                                                                    'placeholder' => 'Costo Km interno',
+                                                                    'class' => 'form-control',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido',
+                                                                    'data-rule-number' => 'true',
+                                                                    'data-msg-number' => 'Este campo debe ser numérico'
+                                                                ]; ?>
+                                                                <?php echo form_input('interno', set_value('interno'), $data_km_interno); ?>
+                                                                <span class="help-block"> Costo km interno </span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-actions right">
                                                     <a type="button" class="btn default"
-                                                       href="<?php echo base_url('materiales'); ?>">Cancelar</a>
+                                                       href="<?php echo base_url('tarifas_acarreos'); ?>">Cancelar</a>
                                                     <button type="submit" class="btn blue" id="btn_submit_form1">
                                                         <i class="fa fa-check"></i> Guardar
                                                     </button>
@@ -247,24 +269,6 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
     $(document).ready(function () {
-        $('#cat_estados_id').on('change', function(){
-            var selected = $(this).find("option:selected").val();
-            var my_url = "<?php echo base_url('materiales/municipios_por_estado/'); ?>" + selected;
-            $.get(
-                my_url
-            ).done(function (data) {
-                var $select = $('#cat_municipios_id');
-                $select.empty();
-                for (var idx in data) {
-                    $select.append(
-                        $("<option>").attr("value", data[idx].cat_municipios_id).text(data[idx].descripcion)
-                    );
-                }
-                $('.selectpicker').selectpicker('refresh');
-            }).fail(function () {
-                alert("Error al obtener los estados");
-            });
-        });
         var form1 = $('#form1');
         var error1 = $('.alert-danger', form1);
         form1.validate({

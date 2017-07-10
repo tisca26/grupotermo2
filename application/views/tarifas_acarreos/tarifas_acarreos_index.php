@@ -67,7 +67,7 @@
                     <div class="page-head">
                         <div class="container-fluid">
                             <div class="page-title">
-                                <h1>Materiales</h1>
+                                <h1>Tarifas Acarreos</h1>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                                     <i class="fa fa-circle"></i>
                                 </li>
                                 <li>
-                                    <span>Materiales</span>
+                                    <span>Tarifas Acarreos</span>
                                 </li>
                             </ul>
                             <!-- --------------------------- INICIO CONTENIDO --------------------------- -->
@@ -88,7 +88,7 @@
                                     <div class="col-md-12">
                                         <div class="portlet light portlet-fit portlet-datatable ">
                                             <div class="portlet-title">
-                                                <a type="button" class="btn btn-primary" href="<?php echo base_url('materiales/insertar');?>"> <i class="fa fa-plus"></i> Agregar </a>
+                                                <a type="button" class="btn btn-primary" href="<?php echo base_url('tarifas_acarreos/insertar');?>"> <i class="fa fa-plus"></i> Agregar </a>
                                             </div>
                                             <div class="portlet-body">
                                                 <?php echo get_bootstrap_alert(); ?>
@@ -97,25 +97,34 @@
                                                     <thead>
                                                     <tr>
                                                         <th class="text-center"> ID </th>
-                                                        <th class="text-center"> Clave </th>
-                                                        <th class="text-center"> Nombre </th>
+                                                        <th class="text-center"> Obra </th>
+                                                        <th class="text-center"> Proveedor </th>
+                                                        <th class="text-center"> 1er Km </th>
+                                                        <th class="text-center"> Sub Km </th>
+                                                        <th class="text-center"> Interno </th>
                                                         <th class="text-center"> Opciones </th>
                                                     </tr>
                                                     </thead>
                                                     <tfoot>
                                                     <tr>
                                                         <th class="text-center"> ID </th>
-                                                        <th class="text-center"> Clave </th>
-                                                        <th class="text-center"> Nombre </th>
+                                                        <th class="text-center"> Obra </th>
+                                                        <th class="text-center"> Proveedor </th>
+                                                        <th class="text-center"> 1er Km </th>
+                                                        <th class="text-center"> Sub Km </th>
+                                                        <th class="text-center"> Interno </th>
                                                         <th class="text-center"> Opciones </th>
                                                     </tr>
                                                     </tfoot>
                                                     <tbody>
-                                                    <?php foreach ($materiales as $material): ?>
+                                                    <?php foreach ($tarifas_acarreos as $tarifa_acarreo): ?>
                                                         <tr class="odd gradeX">
-                                                            <td class="text-center"> <?php echo $material->materiales_id; ?> </td>
-                                                            <td class="text-center"> <?php echo $material->clave; ?> </td>
-                                                            <td class="text-center"> <?php echo $material->nombre; ?> </td>
+                                                            <td class="text-center"> <?php echo $tarifa_acarreo->tarifas_acarreos_id; ?> </td>
+                                                            <td class="text-center"> <?php echo $tarifa_acarreo->obra_nombre; ?> </td>
+                                                            <td class="text-center"> <?php echo $tarifa_acarreo->proveedor_nombre; ?> </td>
+                                                            <td class="text-center"> <?php echo number_format($tarifa_acarreo->primer_kilometro, 2); ?> </td>
+                                                            <td class="text-center"> <?php echo number_format($tarifa_acarreo->kilometros_subsecuentes, 2); ?> </td>
+                                                            <td class="text-center"> <?php echo number_format($tarifa_acarreo->interno, 2); ?> </td>
                                                             <td class="text-center">
                                                                 <div class="clearfix">
                                                                     <button class="btn btn-sm red btn_borrar"
@@ -124,11 +133,11 @@
                                                                             data-btn-ok-label="Si"
                                                                             data-original-title="¿Desea borrar este registro?"
                                                                             title="Borrar elemento"
-                                                                            data-id="<?php echo $material->materiales_id; ?>">
+                                                                            data-id="<?php echo $tarifa_acarreo->tarifas_acarreos_id; ?>">
                                                                         Borrar <i class="fa fa-times"></i>
                                                                     </button>
 
-                                                                    <a href="<?php echo base_url('materiales/editar') . '/' . $material->materiales_id; ?>" class="btn btn-sm blue">
+                                                                    <a href="<?php echo base_url('tarifas_acarreos/editar') . '/' . $tarifa_acarreo->tarifas_acarreos_id; ?>" class="btn btn-sm blue">
                                                                         <i class="fa fa-file-o"></i> Editar </a>
                                                                 </div>
                                                             </td>
@@ -193,13 +202,10 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
     $(document).ready(function () {
-        $('#clickmewow').click(function () {
-            $('#radio1003').attr('checked', 'checked');
-        });
 
         $('.btn_borrar').on('confirmed.bs.confirmation', function () {
             $id = $(this).attr('data-id');
-            window.location.replace('<?php echo base_url()?>materiales/borrar/' + $id);
+            window.location.replace('<?php echo base_url()?>tarifas_acarreos/borrar/' + $id);
         });
 
         var tabla1 = $('#tabla1');
@@ -240,10 +246,10 @@
             "columnDefs": [
                 {  // set default column settings
                     'orderable': false,
-                    'targets': [3]
+                    'targets': [6]
                 }, {
                     "searchable": false,
-                    "targets": [3]
+                    "targets": [6]
                 }
 
             ],
