@@ -75,6 +75,7 @@
  * @property CI_Encrypt          $encrypt              Provides two-way keyed encoding using Mcrypt
  * @property CI_Javascript       $javascript           Javascript Class
  ***************** YOUR LIBRARIES *****************
+ * @property Acarreo                        $acarreo                Lib para acarreo
  * @property Auth_lib                       $auth_lib               Autenticar
  * @property Camion                         $camion                 Lib de camiones
  * @property Cargar_elementos_manager       $cargar_elementos_manager   Cargar elementos
@@ -94,6 +95,7 @@
  * @property User                           $user                   Lib para usuarios
  * @property Zona                           $zona                   Lib de zonas
  ***************** YOUR MODELS *****************
+ * @property Acarreos_model                 $acarreos_model             Model de acarreos
  * @property Acl_model                      $acl_model                  Model de Acl
  * @property Archivos_cargados_model        $archivos_cargados_model    Model de archivos cargados
  * @property Camiones_model                 $camiones_model             Model de camiones

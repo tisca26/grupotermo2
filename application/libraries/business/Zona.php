@@ -10,6 +10,14 @@ class Zona
         $this->CI->load->model('zonas_model');
     }
 
+    public function zonas_por_obra_id($obras_id = 0, $cuentas_id = 0)
+    {
+        if (is_null($cuentas_id)) {
+            $cuentas_id = 0;
+        }
+        return $this->CI->zonas_model->zonas_por_obra_id($obras_id, $cuentas_id);
+    }
+
     public function zonas_por_cuenta($cuentas_id = 0, $order_by = 'zonas_id')
     {
         if (is_null($cuentas_id)) {

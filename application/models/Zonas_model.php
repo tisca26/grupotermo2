@@ -27,6 +27,11 @@ class Zonas_model extends CI_Model
         return $res;
     }
 
+    public function zonas_por_obra_id($obras_id = 0, $cuentas_id = 0)
+    {
+        return $this->db->where('cuentas_id', $cuentas_id)->where('obras_id', $obras_id)->get('v_zonas')->result();
+    }
+
     public function insertar($data = array())
     {
         return $this->db->insert('zonas', $data);
