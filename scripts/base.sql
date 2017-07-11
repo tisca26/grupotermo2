@@ -3204,6 +3204,7 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `camiones` (
   `camiones_id` INT NOT NULL AUTO_INCREMENT,
+  `clave` VARCHAR(15) NULL,
   `placa` VARCHAR(10) NOT NULL,
   `nombre_chofer` VARCHAR(200) NULL,
   `capacidad` DECIMAL(12,2) NOT NULL DEFAULT 0,
@@ -3229,6 +3230,7 @@ CREATE TABLE IF NOT EXISTS `materiales_acarreos` (
   `materiales_acarreos_id` INT NOT NULL AUTO_INCREMENT,
   `materiales_servicios_id` INT NOT NULL DEFAULT 0,
   `cat_unidades_id` INT NOT NULL DEFAULT 0,
+  `nombre_en_obra` VARCHAR(60) NULL,
   `costo` DECIMAL(12,2) NOT NULL DEFAULT 0,
   `ubicacion` VARCHAR(100) NULL,
   `proveedores_id` INT NOT NULL DEFAULT 0,

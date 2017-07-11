@@ -20,7 +20,7 @@ class Camiones_model extends CI_Model
     public function camiones_todos_por_cuenta($cuentas_id = 0, $estatus = null, $order_by = 'camiones_id')
     {
         $res = array();
-        if (!is_null($estatus)){
+        if (!is_null($estatus)) {
             $this->db->where('estatus', $estatus);
         }
         $q = $this->db->where('cuentas_id', $cuentas_id)->order_by($order_by)->get('v_camiones');
@@ -53,5 +53,10 @@ class Camiones_model extends CI_Model
     public function borrar($camion = array())
     {
         return $this->db->delete('camiones', $camion);
+    }
+
+    public function camiones_por_proveedores_ids($cuentas_id = 0, $proveedores_ids = array())
+    {
+        return $this->db->where('cuentas_id', $cuentas_id)->where_in('proveedores_id', $proveedores_ids)->get('camiones')->result();
     }
 }

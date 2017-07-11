@@ -152,7 +152,7 @@
                                                     <div class="row">
                                                         <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label class="control-label"> Costo Primer Km
+                                                                <label class="control-label"> Costo Primer Km por m<sup>3</sup>
                                                                     <span class="required"> * </span></label>
                                                                 <?php $data_primer_km = [
                                                                     'id' => 'primer_kilometro',
@@ -169,7 +169,7 @@
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label class="control-label"> Costo Km Subsecuente
+                                                                <label class="control-label"> Costo Km Subsecuente por m<sup>3</sup>
                                                                     <span class="required"> * </span></label>
                                                                 <?php $data_km_sub = [
                                                                     'id' => 'kilometros_subsecuentes',
@@ -186,7 +186,7 @@
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label class="control-label"> Costo Km Interno
+                                                                <label class="control-label"> Costo Interno
                                                                     <span class="required"> * </span></label>
                                                                 <?php $data_km_interno = [
                                                                     'id' => 'interno',

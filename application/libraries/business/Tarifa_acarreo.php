@@ -41,4 +41,12 @@ class Tarifa_acarreo
     {
         return $this->CI->tarifas_acarreos_model->borrar($tarifa_acarreo);
     }
+
+    public function tarifas_por_obras_id($cuentas_id = 0, $obras_id = 0)
+    {
+        if (is_null($cuentas_id)) {
+            $cuentas_id = 0;
+        }
+        return $this->CI->tarifas_acarreos_model->tarifas_por_obras_id($cuentas_id, $obras_id);
+    }
 }

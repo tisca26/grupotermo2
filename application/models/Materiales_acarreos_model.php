@@ -51,4 +51,9 @@ class Materiales_acarreos_model extends CI_Model
     {
         return $this->db->delete('materiales_acarreos', $material_acarreo);
     }
+
+    public function materiales_acarreos_por_obras_id($cuentas_id = 0, $obras_id = 0)
+    {
+        return $this->db->where('cuentas_id', $cuentas_id)->where('obras_id', $obras_id)->get('materiales_acarreos')->result();
+    }
 }

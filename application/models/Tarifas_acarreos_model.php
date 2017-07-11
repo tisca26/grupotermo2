@@ -51,4 +51,9 @@ class Tarifas_acarreos_model extends CI_Model
     {
         return $this->db->delete('tarifas_acarreos', $tarifa_acarreo);
     }
+
+    public function tarifas_por_obras_id($cuentas_id = 0, $obras_id = 0)
+    {
+        return $this->db->where('cuentas_id', $cuentas_id)->where('obras_id', $obras_id)->get('tarifas_acarreos')->result();
+    }
 }

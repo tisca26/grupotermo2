@@ -7,7 +7,7 @@ class Acarreos extends Privy
     public function __construct()
     {
         parent::__construct();
-        $this->set_read_list(array('index', 'zonas_por_obra'));
+        $this->set_read_list(array('index', 'zonas_por_obra', 'camiones_por_obra', 'materiales_acarreo_por_obra'));
         $this->set_insert_list(array('insertar', 'frm_insertar'));
         $this->set_update_list(array('editar', 'frm_editar'));
         $this->set_delete_list(array('borrar', 'borrado_final'));
@@ -16,6 +16,7 @@ class Acarreos extends Privy
         $this->load->library('business/Camion');
         $this->load->library('business/Material_acarreo');
         $this->load->library('business/Obra');
+        $this->load->library('business/Tarifa_acarreo');
         $this->load->library('business/Zona');
     }
 
@@ -29,6 +30,31 @@ class Acarreos extends Privy
         echo json_encode($zonas);
     }
 
+    public function camiones_por_obra($obras_id = 0)
+    {
+        $camiones = array();
+        if (valid_id($obras_id)){
+            $tarifas = $this->tarifa_acarreo->tarifas_por_obras_id(get_attr_session('usr_cuenta_id'), $obras_id);
+            $proveedores_ids = array();
+            foreach ($tarifas as $tarifa){
+                $proveedores_ids[] = $tarifa->proveedores_id;
+            }
+            $camiones = $this->camion->camiones_por_proveedores_ids(get_attr_session('usr_cuenta_id'), $proveedores_ids);
+        }
+        header("Content-Type: application/json; charset=utf-8");
+        echo json_encode($camiones);
+    }
+
+    public function materiales_acarreo_por_obra($obras_id = 0)
+    {
+        $materiales_acarreo = array();
+        if (valid_id($obras_id)) {
+            $materiales_acarreo = $this->material_acarreo->materiales_acarreos_por_obras_id(get_attr_session('usr_cuenta_id'), $obras_id);
+        }
+        header("Content-Type: application/json; charset=utf-8");
+        echo json_encode($materiales_acarreo);
+    }
+
     public function index()
     {
         $data['acarreos'] = $this->acarreo->acarreos_por_cuenta(get_attr_session('usr_cuenta_id'));
@@ -37,8 +63,6 @@ class Acarreos extends Privy
 
     public function insertar()
     {
-        $data['camiones'] = $this->camion->camiones_por_cuenta(get_attr_session('usr_cuenta_id'));
-        $data['materiales'] = $this->material_acarreo->materiales_acarreos_por_cuenta(get_attr_session('usr_cuenta_id'));
         $data['obras'] = $this->obra->obras_por_cuenta(get_attr_session('usr_cuenta_id'));
         $this->load->view('acarreos/acarreos_insertar', $data);
     }
@@ -74,10 +98,15 @@ class Acarreos extends Privy
             redirect('acarreos');
         }
         $data['acarreo'] = $this->acarreo->acarreo_por_id_y_cuenta($id, get_attr_session('usr_cuenta_id'));
-        $data['camiones'] = $this->camion->camiones_por_cuenta(get_attr_session('usr_cuenta_id'));
-        $data['materiales'] = $this->material_acarreo->materiales_acarreos_por_cuenta(get_attr_session('usr_cuenta_id'));
         $data['obras'] = $this->obra->obras_por_cuenta(get_attr_session('usr_cuenta_id'));
         $data['zonas'] = $this->zona->zonas_por_obra_id($data['acarreo']->obras_id, get_attr_session('usr_cuenta_id'));
+        $tarifas = $this->tarifa_acarreo->tarifas_por_obras_id(get_attr_session('usr_cuenta_id'), $data['acarreo']->obras_id);
+        $proveedores_ids = array();
+        foreach ($tarifas as $tarifa){
+            $proveedores_ids[] = $tarifa->proveedores_id;
+        }
+        $data['camiones'] = $this->camion->camiones_por_proveedores_ids(get_attr_session('usr_cuenta_id'), $proveedores_ids);
+        $data['materiales'] = $this->material_acarreo->materiales_acarreos_por_obras_id(get_attr_session('usr_cuenta_id'), $data['acarreo']->obras_id);
         $this->load->view('acarreos/acarreos_editar', $data);
     }
 

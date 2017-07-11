@@ -96,7 +96,7 @@
                                                        id="tabla1">
                                                     <thead>
                                                     <tr>
-                                                        <th class="text-center"> ID </th>
+                                                        <th class="text-center"> Clave </th>
                                                         <th class="text-center"> Placa </th>
                                                         <th class="text-center"> Capacidad </th>
                                                         <th class="text-center"> Proveedor </th>
@@ -105,7 +105,7 @@
                                                     </thead>
                                                     <tfoot>
                                                     <tr>
-                                                        <th class="text-center"> ID </th>
+                                                        <th class="text-center"> Clave </th>
                                                         <th class="text-center"> Placa </th>
                                                         <th class="text-center"> Capacidad </th>
                                                         <th class="text-center"> Proveedor </th>
@@ -115,7 +115,7 @@
                                                     <tbody>
                                                     <?php foreach ($camiones as $camion): ?>
                                                         <tr class="odd gradeX">
-                                                            <td class="text-center"> <?php echo $camion->camiones_id; ?> </td>
+                                                            <td class="text-center"> <?php echo $camion->clave; ?> </td>
                                                             <td class="text-center"> <?php echo $camion->placa; ?> </td>
                                                             <td class="text-center"> <?php echo number_format_clean($camion->capacidad, 2); ?> </td>
                                                             <td class="text-center"> <?php echo $camion->proveedor_nombre; ?> </td>

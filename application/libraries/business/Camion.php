@@ -41,4 +41,12 @@ class Camion
     {
         return $this->CI->camiones_model->borrar($camion);
     }
+
+    public function camiones_por_proveedores_ids($cuentas_id = 0, $proveedores_ids = array())
+    {
+        if (is_null($cuentas_id)) {
+            $cuentas_id = 0;
+        }
+        return $this->CI->camiones_model->camiones_por_proveedores_ids($cuentas_id, $proveedores_ids);
+    }
 }

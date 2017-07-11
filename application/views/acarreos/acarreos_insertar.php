@@ -150,6 +150,50 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
+                                                                <label class="control-label"> Obra
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_obras = [
+                                                                    'id' => 'obras_id',
+                                                                    'class' => 'form-control selectpicker',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido',
+                                                                    'data-live-search' => "true",
+                                                                    'data-size' => '5',
+                                                                    'title' => '- Seleccione -',
+                                                                    'data-live-search-normalize' => "true"
+                                                                ];
+                                                                $obras_sel = array();
+                                                                foreach ($obras as $obra) {
+                                                                    $obras_sel[$obra->obras_id] = $obra->nombre;
+                                                                }
+                                                                ?>
+                                                                <?php echo form_dropdown('obras_id', $obras_sel, '', $data_obras) ?>
+                                                                <span class="help-block"> Obra del acarreo </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Zona
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_zona = [
+                                                                    'id' => 'zonas_id',
+                                                                    'class' => 'form-control selectpicker',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido',
+                                                                    'data-live-search' => "true",
+                                                                    'data-size' => '5',
+                                                                    'title' => '- Seleccione -',
+                                                                    'data-live-search-normalize' => "true"
+                                                                ];
+                                                                ?>
+                                                                <?php echo form_dropdown('zonas_id', array(), '', $data_zona) ?>
+                                                                <span class="help-block"> Zona del acarreo </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
                                                                 <label class="control-label"> Camión
                                                                     <span class="required"> * </span></label>
                                                                 <?php $data_camion = [
@@ -162,18 +206,14 @@
                                                                     'title' => '- Seleccione -',
                                                                     'data-live-search-normalize' => "true"
                                                                 ];
-                                                                $camiones_sel = array();
-                                                                foreach ($camiones as $camion) {
-                                                                    $camiones_sel[$camion->camiones_id] = $camion->placa;
-                                                                }
                                                                 ?>
-                                                                <?php echo form_dropdown('camiones_id', $camiones_sel, '', $data_camion) ?>
+                                                                <?php echo form_dropdown('camiones_id', array(), '', $data_camion) ?>
                                                                 <span class="help-block"> Camión del acarreo </span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label"> Material
+                                                                <label class="control-label"> Material de acarreo
                                                                     <span class="required"> * </span></label>
                                                                 <?php $data_material = [
                                                                     'id' => 'materiales_acarreos_id',
@@ -185,12 +225,8 @@
                                                                     'title' => '- Seleccione -',
                                                                     'data-live-search-normalize' => "true"
                                                                 ];
-                                                                $materiales_sel = array();
-                                                                foreach ($materiales as $material) {
-                                                                    $materiales_sel[$material->materiales_acarreos_id] = $material->material_nombre;
-                                                                }
                                                                 ?>
-                                                                <?php echo form_dropdown('materiales_acarreos_id', $materiales_sel, '', $data_material) ?>
+                                                                <?php echo form_dropdown('materiales_acarreos_id', array(), '', $data_material) ?>
                                                                 <span class="help-block"> Material del acarreo </span>
                                                             </div>
                                                         </div>
@@ -231,50 +267,6 @@
                                                                 ]; ?>
                                                                 <?php echo form_input('checador', set_value('checador'), $data_checador); ?>
                                                                 <span class="help-block"> Checador del acarreo </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="control-label"> Obra
-                                                                    <span class="required"> * </span></label>
-                                                                <?php $data_obras = [
-                                                                    'id' => 'obras_id',
-                                                                    'class' => 'form-control selectpicker',
-                                                                    'data-rule-required' => 'true',
-                                                                    'data-msg-required' => 'Este campo es requerido',
-                                                                    'data-live-search' => "true",
-                                                                    'data-size' => '5',
-                                                                    'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
-                                                                ];
-                                                                $obras_sel = array();
-                                                                foreach ($obras as $obra) {
-                                                                    $obras_sel[$obra->obras_id] = $obra->nombre;
-                                                                }
-                                                                ?>
-                                                                <?php echo form_dropdown('obras_id', $obras_sel, '', $data_obras) ?>
-                                                                <span class="help-block"> Obra del acarreo </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="control-label"> Zona
-                                                                    <span class="required"> * </span></label>
-                                                                <?php $data_zona = [
-                                                                    'id' => 'zonas_id',
-                                                                    'class' => 'form-control selectpicker',
-                                                                    'data-rule-required' => 'true',
-                                                                    'data-msg-required' => 'Este campo es requerido',
-                                                                    'data-live-search' => "true",
-                                                                    'data-size' => '5',
-                                                                    'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
-                                                                ];
-                                                                ?>
-                                                                <?php echo form_dropdown('zonas_id', array(), '', $data_zona) ?>
-                                                                <span class="help-block"> Zona del acarreo </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -350,6 +342,57 @@
 <script src="<?php echo cdn_assets(); ?>layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
+    function genera_zonas_sel(obras_id) {
+        var my_url = "<?php echo base_url('acarreos/zonas_por_obra/'); ?>" + obras_id;
+        $.get(
+            my_url
+        ).done(function (data) {
+            var $select = $('#zonas_id');
+            $select.empty();
+            for (var idx in data) {
+                $select.append(
+                    $("<option>").attr("value", data[idx].zonas_id).text(data[idx].nombre)
+                );
+            }
+            $('.selectpicker').selectpicker('refresh');
+        }).fail(function () {
+            alert("Error al obtener las zonas");
+        });
+    }
+    function genera_camiones_sel(obras_id) {
+        var my_url = "<?php echo base_url('acarreos/camiones_por_obra/'); ?>" + obras_id;
+        $.get(
+            my_url
+        ).done(function (data) {
+            var $select = $('#camiones_id');
+            $select.empty();
+            for (var idx in data) {
+                $select.append(
+                    $("<option>").attr("value", data[idx].camiones_id).text(data[idx].clave + ' - ' + data[idx].placa)
+                );
+            }
+            $('.selectpicker').selectpicker('refresh');
+        }).fail(function () {
+            alert("Error al obtener los camiones");
+        });
+    }
+    function genera_materiales_acarreos_sel(obras_id) {
+        var my_url = "<?php echo base_url('acarreos/materiales_acarreo_por_obra/'); ?>" + obras_id;
+        $.get(
+            my_url
+        ).done(function (data) {
+            var $select = $('#materiales_acarreos_id');
+            $select.empty();
+            for (var idx in data) {
+                $select.append(
+                    $("<option>").attr("value", data[idx].materiales_acarreos_id).text(data[idx].nombre_en_obra)
+                );
+            }
+            $('.selectpicker').selectpicker('refresh');
+        }).fail(function () {
+            alert("Error al obtener los camiones");
+        });
+    }
     $(document).ready(function () {
         $.validator.addMethod("dateTime", function (value, element) {
             var stamp = value.split(" ");
@@ -372,21 +415,9 @@
         });
         $('#obras_id').on('change', function () {
             var selected = $(this).find("option:selected").val();
-            var my_url = "<?php echo base_url('acarreos/zonas_por_obra/'); ?>" + selected;
-            $.get(
-                my_url
-            ).done(function (data) {
-                var $select = $('#zonas_id');
-                $select.empty();
-                for (var idx in data) {
-                    $select.append(
-                        $("<option>").attr("value", data[idx].zonas_id).text(data[idx].nombre)
-                    );
-                }
-                $('.selectpicker').selectpicker('refresh');
-            }).fail(function () {
-                alert("Error al obtener las zonas");
-            });
+            genera_zonas_sel(selected);
+            genera_camiones_sel(selected);
+            genera_materiales_acarreos_sel(selected);
         });
         var form1 = $('#form1');
         var error1 = $('.alert-danger', form1);

@@ -99,8 +99,8 @@
                                                         <th class="text-center"> ID </th>
                                                         <th class="text-center"> Obra </th>
                                                         <th class="text-center"> Proveedor </th>
-                                                        <th class="text-center"> 1er Km </th>
-                                                        <th class="text-center"> Sub Km </th>
+                                                        <th class="text-center"> 1er Km por m<sup>3</sup></th>
+                                                        <th class="text-center"> Sub Km por m<sup>3</sup></th>
                                                         <th class="text-center"> Interno </th>
                                                         <th class="text-center"> Opciones </th>
                                                     </tr>
@@ -110,8 +110,8 @@
                                                         <th class="text-center"> ID </th>
                                                         <th class="text-center"> Obra </th>
                                                         <th class="text-center"> Proveedor </th>
-                                                        <th class="text-center"> 1er Km </th>
-                                                        <th class="text-center"> Sub Km </th>
+                                                        <th class="text-center"> 1er Km por m<sup>3</sup></th>
+                                                        <th class="text-center"> Sub Km por m<sup>3</sup></th>
                                                         <th class="text-center"> Interno </th>
                                                         <th class="text-center"> Opciones </th>
                                                     </tr>

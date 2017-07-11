@@ -69,7 +69,7 @@ class Camiones extends Privy
         } else {
             $camion = $this->input->post();
             if ($this->camion->editar($camion)){
-                $msg = "La camion se guardó con éxito";
+                $msg = "El camion se guardó con éxito";
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_SUCCESS);
                 redirect('camiones');
             }else{

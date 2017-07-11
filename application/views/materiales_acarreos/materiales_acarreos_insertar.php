@@ -62,7 +62,7 @@
                     <div class="page-head">
                         <div class="container-fluid">
                             <div class="page-title">
-                                <h1>Materiales</h1>
+                                <h1>Materiales para Acarreo</h1>
                             </div>
                         </div>
                     </div>
@@ -74,11 +74,11 @@
                                     <i class="fa fa-circle"></i>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('materiales_acarreos'); ?>">Materiales</a>
+                                    <a href="<?php echo base_url('materiales_acarreos'); ?>">Materiales para Acarreo</a>
                                     <i class="fa fa-circle"></i>
                                 </li>
                                 <li>
-                                    <span>Agregar Materiales</span>
+                                    <span>Agregar Materiales para Acarrero</span>
                                 </li>
                             </ul>
                             <!-- --------------------------- INICIO CONTENIDO --------------------------- -->
@@ -89,7 +89,7 @@
                                             <div class="portlet-title">
                                                 <div class="caption">
                                                     <i class="icon-settings font-dark"></i>
-                                                    <span class="caption-subject font-dark sbold uppercase">Alta de Materiales</span>
+                                                    <span class="caption-subject font-dark sbold uppercase">Alta de Materiales para Acarreos</span>
                                                 </div>
                                             </div>
                                             <div class="portlet-body">
@@ -200,6 +200,23 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
+                                                                <label class="control-label"> Nombre en Obra
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_nombre_obra = [
+                                                                    'id' => 'nombre_en_obra',
+                                                                    'placeholder' => 'Nombre en obra',
+                                                                    'class' => 'form-control',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido',
+                                                                    'data-rule-maxlength' => '65',
+                                                                    'data-msg-maxlength' => 'Mínimo debe tener {0} caracteres'
+                                                                ]; ?>
+                                                                <?php echo form_input('nombre_en_obra', set_value('nombre_en_obra'), $data_nombre_obra); ?>
+                                                                <span class="help-block"> Nombre en Obra </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
                                                                 <label class="control-label"> Costo
                                                                     <span class="required"> * </span></label>
                                                                 <?php $data_costo = [
@@ -215,6 +232,8 @@
                                                                 <span class="help-block"> Costo </span>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label"> Ubicación
@@ -232,15 +251,13 @@
                                                                 <span class="help-block"> Ubicación </span>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label"> Distancia a la obra
                                                                     <span class="required"> * </span></label>
                                                                 <?php $data_distancia_obra = [
                                                                     'id' => 'distancia_obra',
-                                                                    'placeholder' => 'Costo del material',
+                                                                    'placeholder' => 'Distancia a la obra',
                                                                     'class' => 'form-control',
                                                                     'data-rule-required' => 'true',
                                                                     'data-msg-required' => 'Este campo es requerido',

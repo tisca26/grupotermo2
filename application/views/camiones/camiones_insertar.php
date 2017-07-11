@@ -103,7 +103,22 @@
                                                         Tiene errores en su formulario
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="control-label"> Clave
+                                                                    <span class="required"> * </span></label>
+                                                                <?php $data_clave = [
+                                                                    'id' => 'clave',
+                                                                    'placeholder' => 'Clave del camión',
+                                                                    'class' => 'form-control',
+                                                                    'data-rule-required' => 'true',
+                                                                    'data-msg-required' => 'Este campo es requerido'
+                                                                ]; ?>
+                                                                <?php echo form_input('clave', set_value('clave'), $data_clave); ?>
+                                                                <span class="help-block"> Clave del camion </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label"> Placa
                                                                     <span class="required"> * </span></label>
@@ -120,7 +135,9 @@
                                                                 <span class="help-block"> Placa del camion </span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label"> Chofer
                                                                     <span class="required"> * </span></label>
@@ -137,7 +154,7 @@
                                                                 <span class="help-block"> Chofer del camion </span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label"> Proveedor
                                                                     <span class="required"> * </span></label>

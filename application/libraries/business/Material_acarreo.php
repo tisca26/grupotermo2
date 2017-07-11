@@ -41,4 +41,12 @@ class Material_acarreo
     {
         return $this->CI->materiales_acarreos_model->borrar($material_acarreo);
     }
+
+    public function materiales_acarreos_por_obras_id($cuentas_id = 0, $obras_id = 0)
+    {
+        if (is_null($cuentas_id)) {
+            $cuentas_id = 0;
+        }
+        return $this->CI->materiales_acarreos_model->materiales_acarreos_por_obras_id($cuentas_id, $obras_id);
+    }
 }
