@@ -3289,12 +3289,10 @@ CREATE TABLE IF NOT EXISTS `zonas` (
   INDEX `zonas_cuenta_idx` (`cuentas_id` ASC))
 ENGINE = InnoDB;
 
-
 CREATE OR REPLACE VIEW v_zonas AS
 SELECT z.*, o.nombre as obra_nombre, o.estatus as obra_estatus
 FROM zonas z
 INNER JOIN obras o ON z.obras_id = o.obras_id;
-
 
 CREATE TABLE IF NOT EXISTS `acarreos` (
   `acarreos_id` INT NOT NULL AUTO_INCREMENT,
@@ -3306,7 +3304,10 @@ CREATE TABLE IF NOT EXISTS `acarreos` (
   `zonas_id` INT NOT NULL DEFAULT 0,
   `obras_id` INT NOT NULL DEFAULT 0,
   `checador` VARCHAR(150) NULL,
+  `costo_material` DECIMAL(12,2) NOT NULL DEFAULT 0,
+  `costo_acarreo` DECIMAL(12,2) NOT NULL DEFAULT 0,
   `cuentas_id` INT NOT NULL DEFAULT 0,
+  `acarreos_archivos_id` INT NOT NULL DEFAULT 0,
   `fecha_creacion` DATETIME DEFAULT   CURRENT_TIMESTAMP,
   `fecha_edicion` DATETIME ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`acarreos_id`),
@@ -3314,7 +3315,22 @@ CREATE TABLE IF NOT EXISTS `acarreos` (
   INDEX `acarreos_mat_acarreos_idx` (`materiales_acarreos_id` ASC),
   INDEX `acarreos_zonas_idx` (`zonas_id` ASC),
   INDEX `acarreos_obras_idx` (`obras_id` ASC),
-  INDEX `acarreos_cuentas_idx` (`cuentas_id` ASC))
+  INDEX `acarreos_cuentas_idx` (`cuentas_id` ASC),
+  INDEX `acarreos_archivo_idx` (`acarreos_archivos_id` ASC))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `acarreos_archivos` (
+  `acarreos_archivos_id` INT NOT NULL AUTO_INCREMENT,
+  `nombre_archivo` VARCHAR(150) NULL,
+  `usuarios_id` INT NOT NULL DEFAULT 0,
+  `cuentas_id` INT NOT NULL DEFAULT 0,
+  `obras_id` INT NOT NULL DEFAULT 0,
+  `fecha_creacion` DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  `fecha_edicion` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`acarreos_archivos_id`),
+  INDEX `acarreos_archivos_usuario_idx` (`usuarios_id` ASC),
+  INDEX `acarreos_archivos_cuentas_idx` (`cuentas_id` ASC),
+  INDEX `acarreos_archivos_obras_idx` (`obras_id` ASC))
 ENGINE = InnoDB;
 
 CREATE OR REPLACE VIEW v_acarreos AS
@@ -3322,9 +3338,13 @@ SELECT
 a.*, 
 z.nombre as zona_nombre, z.obra_nombre, z.obra_estatus, 
 c.placa, c.nombre_chofer, c.capacidad, c.fecha_cubicacion, 
-ma.cat_unidades_id, ma.costo, ma.ubicacion, ma.distancia_obra, ma.material_clave, ma.material_nombre, ma.material_tipo
+ma.nombre_en_obra, ma.cat_unidades_id, ma.costo, ma.ubicacion, ma.distancia_obra, ma.material_clave, ma.material_nombre, ma.material_tipo,
+aa.nombre_archivo
 FROM acarreos a
 INNER JOIN v_zonas z ON a.zonas_id = z.zonas_id
 INNER JOIN v_camiones c ON a.camiones_id = c.camiones_id
-INNER JOIN v_materiales_acarreos ma ON a.materiales_acarreos_id = ma.materiales_acarreos_id;
+INNER JOIN v_materiales_acarreos ma ON a.materiales_acarreos_id = ma.materiales_acarreos_id
+LEFT JOIN acarreos_archivos aa ON a.acarreos_archivos_id = aa.acarreos_archivos_id;
+
+
 

@@ -56,4 +56,9 @@ class Zonas_model extends CI_Model
     {
         return $this->db->delete('zonas', $zona);
     }
+
+    public function zonas_por_nombre_obras_id($nombre_zona = '', $obras_id = 0, $cuentas_id = 0)
+    {
+        return $this->db->where('obras_id', $obras_id)->where('cuentas_id', $cuentas_id)->where('nombre', $nombre_zona)->get('zonas')->row();
+    }
 }

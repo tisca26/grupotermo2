@@ -45,4 +45,13 @@ if (!function_exists('valid_id')) {
         return ($number !== FALSE);
     }
 }
+
+if (!function_exists('fecha_mysql_de_excel_generado')) {
+    function fecha_mysql_de_excel_generado($fecha_str = '')
+    {
+        $str_final = substr($fecha_str, 0, 14);
+        $fecha = DateTime::createFromFormat('YmdHis', $str_final);
+        return $fecha->format('Y-m-d H:i:s');
+    }
+}
 ?>

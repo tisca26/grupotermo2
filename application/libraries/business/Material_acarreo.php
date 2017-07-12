@@ -49,4 +49,12 @@ class Material_acarreo
         }
         return $this->CI->materiales_acarreos_model->materiales_acarreos_por_obras_id($cuentas_id, $obras_id);
     }
+
+    public function material_acarreo_por_nombre_obra_id($nombre_en_obra = '', $obras_id = 0, $cuentas_id = 0)
+    {
+        if (is_null($cuentas_id)) {
+            $cuentas_id = 0;
+        }
+        return $this->CI->materiales_acarreos_model->material_acarreo_por_nombre_obra_id($nombre_en_obra, $obras_id, $cuentas_id);
+    }
 }

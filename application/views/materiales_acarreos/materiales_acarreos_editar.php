@@ -176,31 +176,6 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label"> Unidades
-                                                                    <span class="required"> * </span></label>
-                                                                <?php $data_unidades = [
-                                                                    'id' => 'cat_unidades_id',
-                                                                    'class' => 'form-control selectpicker',
-                                                                    'data-rule-required' => 'true',
-                                                                    'data-msg-required' => 'Este campo es requerido',
-                                                                    'data-live-search' => "true",
-                                                                    'data-size' => '5',
-                                                                    'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
-                                                                ];
-                                                                $unidades_sel = array();
-                                                                foreach ($unidades as $unidad) {
-                                                                    $unidades_sel[$unidad->cat_unidades_id] = $unidad->nombre;
-                                                                }
-                                                                ?>
-                                                                <?php echo form_dropdown('cat_unidades_id', $unidades_sel, $material_acarreo->cat_unidades_id, $data_unidades) ?>
-                                                                <span class="help-block"> Unidades </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
                                                                 <label class="control-label"> Nombre en Obra
                                                                     <span class="required"> * </span></label>
                                                                 <?php $data_nombre_obra = [
@@ -216,6 +191,8 @@
                                                                 <span class="help-block"> Nombre en Obra </span>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label"> Costo
@@ -229,12 +206,15 @@
                                                                     'data-rule-number' => 'true',
                                                                     'data-msg-number' => 'Este campo debe ser numérico'
                                                                 ]; ?>
-                                                                <?php echo form_input('costo', set_value('costo', $material_acarreo->costo), $data_costo); ?>
+                                                                <div class="input-group">
+                                                                    <?php echo form_input('costo', set_value('costo', $material_acarreo->costo), $data_costo); ?>
+                                                                    <span class="input-group-addon">
+                                                                        <span> por m<sup>3</sup> </span>
+                                                                    </span>
+                                                                </div>
                                                                 <span class="help-block"> Costo </span>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label"> Ubicación
@@ -252,6 +232,8 @@
                                                                 <span class="help-block"> Ubicación </span>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label"> Distancia a la obra

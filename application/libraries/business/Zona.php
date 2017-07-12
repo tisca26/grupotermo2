@@ -49,4 +49,12 @@ class Zona
     {
         return $this->CI->zonas_model->borrar($zona);
     }
+
+    public function zonas_por_nombre_obras_id($nombre_zona = '', $obras_id = 0, $cuentas_id = 0)
+    {
+        if (is_null($cuentas_id)) {
+            $cuentas_id = 0;
+        }
+        return $this->CI->zonas_model->zonas_por_nombre_obras_id($nombre_zona, $obras_id, $cuentas_id);
+    }
 }

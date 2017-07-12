@@ -96,7 +96,7 @@
                                                        id="tabla1">
                                                     <thead>
                                                     <tr>
-                                                        <th class="text-center"> ID </th>
+                                                        <th class="text-center"> Nombre en Obra </th>
                                                         <th class="text-center"> Obra </th>
                                                         <th class="text-center"> Proveedor </th>
                                                         <th class="text-center"> Material </th>
@@ -106,7 +106,7 @@
                                                     </thead>
                                                     <tfoot>
                                                     <tr>
-                                                        <th class="text-center"> ID </th>
+                                                        <th class="text-center"> Nombre en Obra </th>
                                                         <th class="text-center"> Obra </th>
                                                         <th class="text-center"> Proveedor </th>
                                                         <th class="text-center"> Material </th>
@@ -117,7 +117,7 @@
                                                     <tbody>
                                                     <?php foreach ($materiales_acarreos as $material_acarreo): ?>
                                                         <tr class="odd gradeX">
-                                                            <td class="text-center"> <?php echo $material_acarreo->materiales_acarreos_id; ?> </td>
+                                                            <td class="text-center"> <?php echo $material_acarreo->nombre_en_obra; ?> </td>
                                                             <td class="text-center"> <?php echo $material_acarreo->obra_nombre; ?> </td>
                                                             <td class="text-center"> <?php echo $material_acarreo->proveedor_nombre; ?> </td>
                                                             <td class="text-center"> <?php echo $material_acarreo->material_nombre; ?> </td>

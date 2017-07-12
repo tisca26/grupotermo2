@@ -51,4 +51,19 @@ class Acarreos_model extends CI_Model
     {
         return $this->db->delete('acarreos', $acarreo);
     }
+
+    public function insertar_acarreos_archivos($data = array())
+    {
+        return $this->db->insert('acarreos_archivos', $data);
+    }
+
+    public function ver_archivo_acarreo($archivo_id = 0, $cuentas_id = 0)
+    {
+        return $this->db->where('cuentas_id', $cuentas_id)->where('acarreos_archivos_id', $archivo_id)->get('acarreos_archivos')->row();
+    }
+
+    public function buscar_acarreo($data = array())
+    {
+        return $this->db->where($data)->get('acarreos')->row();
+    }
 }

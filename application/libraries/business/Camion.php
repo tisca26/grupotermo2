@@ -49,4 +49,12 @@ class Camion
         }
         return $this->CI->camiones_model->camiones_por_proveedores_ids($cuentas_id, $proveedores_ids);
     }
+
+    public function camion_por_clave($clave = '', $cuentas_id = 0)
+    {
+        if (is_null($cuentas_id)) {
+            $cuentas_id = 0;
+        }
+        return $this->CI->camiones_model->camion_por_clave($clave, $cuentas_id);
+    }
 }

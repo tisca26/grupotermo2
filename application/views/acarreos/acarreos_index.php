@@ -89,6 +89,7 @@
                                         <div class="portlet light portlet-fit portlet-datatable ">
                                             <div class="portlet-title">
                                                 <a type="button" class="btn btn-primary" href="<?php echo base_url('acarreos/insertar');?>"> <i class="fa fa-plus"></i> Agregar </a>
+                                                <a type="button" class="btn green-haze" href="<?php echo base_url('acarreos/carga_archcivo');?>"> <i class="fa fa-file-excel-o"></i> Cargar Archivo </a>
                                             </div>
                                             <div class="portlet-body">
                                                 <?php echo get_bootstrap_alert(); ?>
@@ -96,10 +97,10 @@
                                                        id="tabla1">
                                                     <thead>
                                                     <tr>
-                                                        <th class="text-center"> ID </th>
                                                         <th class="text-center"> Folio Vale </th>
                                                         <th class="text-center"> Fecha </th>
                                                         <th class="text-center"> Camion </th>
+                                                        <th class="text-center"> Material Obra </th>
                                                         <th class="text-center"> Material </th>
                                                         <th class="text-center"> Tipo </th>
                                                         <th class="text-center"> Obra </th>
@@ -109,10 +110,10 @@
                                                     </thead>
                                                     <tfoot>
                                                     <tr>
-                                                        <th class="text-center"> ID </th>
                                                         <th class="text-center"> Folio Vale </th>
                                                         <th class="text-center"> Fecha </th>
                                                         <th class="text-center"> Camión </th>
+                                                        <th class="text-center"> Material Obra </th>
                                                         <th class="text-center"> Material </th>
                                                         <th class="text-center"> Tipo </th>
                                                         <th class="text-center"> Obra </th>
@@ -123,10 +124,10 @@
                                                     <tbody>
                                                     <?php foreach ($acarreos as $acarreo): ?>
                                                         <tr class="odd gradeX">
-                                                            <td class="text-center"> <?php echo $acarreo->acarreos_id; ?> </td>
                                                             <td class="text-center"> <?php echo $acarreo->folio_vale; ?> </td>
                                                             <td class="text-center"> <?php echo $acarreo->fecha_acarreo; ?> </td>
                                                             <td class="text-center"> <?php echo $acarreo->placa; ?> </td>
+                                                            <td class="text-center"> <?php echo $acarreo->nombre_en_obra; ?> </td>
                                                             <td class="text-center"> <?php echo $acarreo->material_nombre; ?> </td>
                                                             <td class="text-center"> <?php echo $acarreo->tipo_acarreo; ?> </td>
                                                             <td class="text-center"> <?php echo $acarreo->obra_nombre; ?> </td>

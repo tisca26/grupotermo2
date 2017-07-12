@@ -59,4 +59,9 @@ class Camiones_model extends CI_Model
     {
         return $this->db->where('cuentas_id', $cuentas_id)->where_in('proveedores_id', $proveedores_ids)->get('camiones')->result();
     }
+
+    public function camion_por_clave($clave = '', $cuentas_id = 0)
+    {
+        return $this->db->where('cuentas_id', $cuentas_id)->where('clave', $clave)->get('camiones')->row();
+    }
 }

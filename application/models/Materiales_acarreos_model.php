@@ -56,4 +56,9 @@ class Materiales_acarreos_model extends CI_Model
     {
         return $this->db->where('cuentas_id', $cuentas_id)->where('obras_id', $obras_id)->get('materiales_acarreos')->result();
     }
+
+    public function material_acarreo_por_nombre_obra_id($nombre_en_obra = '', $obras_id = 0, $cuentas_id = 0)
+    {
+        return $this->db->where('nombre_en_obra', $nombre_en_obra)->where('obras_id', $obras_id)->where('cuentas_id', $cuentas_id)->get('materiales_acarreos')->row();
+    }
 }

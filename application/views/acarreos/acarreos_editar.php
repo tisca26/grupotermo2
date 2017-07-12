@@ -37,7 +37,8 @@
           type="text/css"/>
     <link href="<?php echo cdn_assets(); ?>global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"
           rel="stylesheet" type="text/css"/>
-    <link href="<?php echo cdn_assets(); ?>global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo cdn_assets(); ?>global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet" type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="<?php echo cdn_assets(); ?>global/css/components.min.css" rel="stylesheet" id="style_components"
@@ -139,7 +140,8 @@
                                                                 <div class="input-group date form_datetime form_datetime bs-datetime">
                                                                     <?php echo form_input('fecha_acarreo', set_value('fecha_acarreo', $acarreo->fecha_acarreo), $data_fecha_acarreo); ?>
                                                                     <span class="input-group-addon">
-                                                                        <button class="btn default date-set" type="button">
+                                                                        <button class="btn default date-set"
+                                                                                type="button">
                                                                             <i class="fa fa-calendar"></i>
                                                                         </button>
                                                                     </span>
@@ -281,6 +283,25 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <?php if ($acarreo->acarreos_archivos_id != 0): ?>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label"> Archivo donde se
+                                                                        cargó: </label>
+                                                                    <ol>
+                                                                        <li>
+                                                                            <a class="text-muted" target="_blank"
+                                                                               href="<?php echo base_url('acarreos/ver_archivo_acarreo/' . $acarreo->acarreos_archivos_id) ?>">
+                                                                                <i class="fa fa-file-excel-o"></i> Archivo Excel
+                                                                            </a>
+                                                                        </li>
+
+                                                                    </ol>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div class="form-actions right">
                                                     <a type="button" class="btn default"
@@ -333,8 +354,10 @@
         type="text/javascript"></script>
 <script src="<?php echo cdn_assets(); ?>global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"
         type="text/javascript"></script>
-<script src="<?php echo cdn_assets(); ?>global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-<script src="<?php echo cdn_assets(); ?>global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.es.js" type="text/javascript"></script>
+<script src="<?php echo cdn_assets(); ?>global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"
+        type="text/javascript"></script>
+<script src="<?php echo cdn_assets(); ?>global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.es.js"
+        type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!--  PAGE LEVEL -->
 <script src="<?php echo cdn_assets(); ?>global/plugins/jquery-validation/js/jquery.validate.min.js"

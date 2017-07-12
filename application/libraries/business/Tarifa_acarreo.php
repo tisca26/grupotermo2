@@ -49,4 +49,12 @@ class Tarifa_acarreo
         }
         return $this->CI->tarifas_acarreos_model->tarifas_por_obras_id($cuentas_id, $obras_id);
     }
+
+    public function tarifa_por_obra_proveedor($obras_id = 0, $proveedores_id = 0, $cuentas_id = 0)
+    {
+        if (is_null($cuentas_id)) {
+            $cuentas_id = 0;
+        }
+        return $this->CI->tarifas_acarreos_model->tarifa_por_obra_proveedor($obras_id, $proveedores_id, $cuentas_id);
+    }
 }

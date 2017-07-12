@@ -56,4 +56,9 @@ class Tarifas_acarreos_model extends CI_Model
     {
         return $this->db->where('cuentas_id', $cuentas_id)->where('obras_id', $obras_id)->get('tarifas_acarreos')->result();
     }
+
+    public function tarifa_por_obra_proveedor($obras_id = 0, $proveedores_id = 0, $cuentas_id = 0)
+    {
+        return $this->db->where('cuentas_id', $cuentas_id)->where('obras_id', $obras_id)->where('proveedores_id', $proveedores_id)->get('tarifas_acarreos')->row();
+    }
 }

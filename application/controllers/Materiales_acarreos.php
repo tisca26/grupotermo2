@@ -39,11 +39,11 @@ class Materiales_acarreos extends Privy
         $this->form_validation->set_rules('obras_id', 'Obra', 'required|integer');
         $this->form_validation->set_rules('proveedores_id', 'Proveedor', 'required|integer');
         $this->form_validation->set_rules('materiales_servicios_id', 'Material', 'required|integer');
-        $this->form_validation->set_rules('cat_unidades_id', 'Unidades', 'required|integer');
         if ($this->form_validation->run() == FALSE) {
             $this->insertar();
         } else {
             $material_acarreo = $this->input->post();
+            $material_acarreo['cat_unidades_id'] = 20; //en acarreos siempre son m3
             if ($this->material_acarreo->insertar($material_acarreo)) {
                 $msg = "El material para acarreo se guardó con éxito, inserte otro o <strong><a href='" . base_url('materiales_acarreos') . "'>vuela al inicio</a></strong>";
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_SUCCESS);
@@ -76,11 +76,11 @@ class Materiales_acarreos extends Privy
         $this->form_validation->set_rules('obras_id', 'Obra', 'required|integer');
         $this->form_validation->set_rules('proveedores_id', 'Proveedor', 'required|integer');
         $this->form_validation->set_rules('materiales_servicios_id', 'Material', 'required|integer');
-        $this->form_validation->set_rules('cat_unidades_id', 'Unidades', 'required|integer');
         if ($this->form_validation->run() == FALSE) {
             $this->editar($this->editar($this->input->post('materiales_acarreos_id')));
         } else {
             $material_acarreo = $this->input->post();
+            $material_acarreo['cat_unidades_id'] = 20; //en acarreos siempre son m3
             if ($this->material_acarreo->editar($material_acarreo)){
                 $msg = "La material_acarreo se guardó con éxito";
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_SUCCESS);
