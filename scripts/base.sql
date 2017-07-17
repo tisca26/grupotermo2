@@ -3306,6 +3306,7 @@ CREATE TABLE IF NOT EXISTS `acarreos` (
   `checador` VARCHAR(150) NULL,
   `costo_material` DECIMAL(12,2) NOT NULL DEFAULT 0,
   `costo_acarreo` DECIMAL(12,2) NOT NULL DEFAULT 0,
+  `costo_suministro` DECIMAL(12,2) NOT NULL DEFAULT 0,
   `cuentas_id` INT NOT NULL DEFAULT 0,
   `acarreos_archivos_id` INT NOT NULL DEFAULT 0,
   `fecha_creacion` DATETIME DEFAULT   CURRENT_TIMESTAMP,

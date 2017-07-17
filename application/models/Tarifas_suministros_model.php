@@ -57,8 +57,12 @@ class Tarifas_suministros_model extends CI_Model
         return $this->db->where('cuentas_id', $cuentas_id)->where('obras_id', $obras_id)->get('tarifas_suministros')->result();
     }
 
-    public function tarifa_por_obra_proveedor($obras_id = 0, $proveedores_id = 0, $cuentas_id = 0)
+    public function tarifas_por_obra_proveedor($obras_id = 0, $proveedores_id = 0, $cuentas_id = 0)
     {
-        return $this->db->where('cuentas_id', $cuentas_id)->where('obras_id', $obras_id)->where('proveedores_id', $proveedores_id)->get('tarifas_suministros')->row();
+        return $this->db->where('cuentas_id', $cuentas_id)->where('obras_id', $obras_id)->where('proveedores_id', $proveedores_id)->get('tarifas_suministros')->result();
+    }
+
+    public function tarifa_por_material_obra_proveedor($cuentas_id = 0, $material_id = 0, $obras_id = 0, $proveedor_id = 0){
+        return $this->db->where('cuentas_id',$cuentas_id)->where('materiales_acarreos_id', $material_id)->where('obras_id', $obras_id)->where('proveedores_id', $proveedor_id)->get('tarifas_suministros')->row();
     }
 }

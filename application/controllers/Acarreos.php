@@ -17,6 +17,7 @@ class Acarreos extends Privy
         $this->load->library('business/Material_acarreo');
         $this->load->library('business/Obra');
         $this->load->library('business/Tarifa_acarreo');
+        $this->load->library('business/Tarifa_suministro');
         $this->load->library('business/Zona');
     }
 
@@ -206,7 +207,7 @@ class Acarreos extends Privy
                             continue;
                         }
                         $tarifa = $this->tarifa_acarreo->tarifa_por_obra_proveedor($obras_id, $camion->proveedores_id, get_attr_session('usr_cuenta_id'));
-                        if (is_null($tarifa)){
+                        if (is_null($tarifa)) {
                             $filas_erroneas[$num_fila] = $fila;
                             continue;
                         }
@@ -220,22 +221,30 @@ class Acarreos extends Privy
                         $ins_acarreo['checador'] = trim($fila['G']);
                         $ins_acarreo['cuentas_id'] = get_attr_session('usr_cuenta_id');
                         $buscar_acarreo = $this->acarreo->buscar_acarreo($ins_acarreo);
-                        if (!is_null($buscar_acarreo)){
+                        if (!is_null($buscar_acarreo)) {
                             $filas_repetidas[$num_fila] = $fila;
                             continue;
                         }
                         $ins_acarreo['costo_material'] = round($camion->capacidad * $material_acarreo->costo, 2);
-                        if ($ins_acarreo['tipo_acarreo'] === 'INTERNO'){
+                        if ($ins_acarreo['tipo_acarreo'] === 'INTERNO') {
                             $ins_acarreo['costo_acarreo'] = round($camion->capacidad * $tarifa->interno, 2);
-                        }else{
+                        } else if ($ins_acarreo['tipo_acarreo'] === 'EXTERNO') {
                             $distancia_a_obra = $material_acarreo->distancia_obra;
                             $costo = round($tarifa->primer_kilometro * $camion->capacidad, 2);
                             $distancia_a_obra -= 1;
-                            if ($distancia_a_obra > 0){
+                            if ($distancia_a_obra > 0) {
                                 $distancia_a_obra = round($distancia_a_obra, 0); //redondeamos hacia arriba
                                 $costo += round($tarifa->kilometros_subsecuentes * $camion->capacidad * $distancia_a_obra);
                             }
                             $ins_acarreo['costo_acarreo'] = $costo;
+                        } else if ($ins_acarreo['tipo_acarreo'] === 'SUMINISTRO') {
+                            $ins_acarreo['costo_material'] = 0;
+                            $tarifa_suministro = $this->tarifa_suministro->tarifa_por_material_obra_proveedor(get_attr_session('usr_cuenta_id'), $material_acarreo->materiales_acarreos_id, $obras_id, $camion->proveedores_id);
+                            if (is_null($tarifa_suministro)){
+                                $filas_erroneas[$num_fila] = $fila;
+                                continue;
+                            }
+                            $ins_acarreo['costo_suministro'] = $tarifa_suministro->costo;
                         }
                         $ins_acarreo['acarreos_archivos_id'] = $archivo_id;
                         if ($this->acarreo->insertar($ins_acarreo) === false) {
@@ -248,9 +257,9 @@ class Acarreos extends Privy
                     set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
                     redirect('acarreos/carga_archcivo');
                 }
-                if (count($filas_repetidas) > 0){
+                if (count($filas_repetidas) > 0) {
                     $repetidos = array();
-                    foreach ($filas_repetidas as $key => $value){
+                    foreach ($filas_repetidas as $key => $value) {
                         $repetidos[] = "La fila #$key ya había sido cargada con los valores: " . implode(' | ', $value);
                     }
                     set_bootstrap_alert($repetidos, BOOTSTRAP_ALERT_WARNING);
