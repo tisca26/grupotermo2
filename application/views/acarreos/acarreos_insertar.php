@@ -253,6 +253,12 @@
                                                                         Interno
                                                                         <span></span>
                                                                     </label>
+                                                                    <label class="mt-radio">
+                                                                        <input type="radio" name="tipo_acarreo"
+                                                                               id="tipo_suministro" value="SUMINISTRO">
+                                                                        Suministro
+                                                                        <span></span>
+                                                                    </label>
                                                                 </div>
                                                             </div>
                                                         </div>

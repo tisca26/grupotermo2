@@ -8,6 +8,8 @@ class Acarreo
     {
         $this->CI =& get_instance();
         $this->CI->load->model('acarreos_model');
+        $this->CI->load->library('business/Tarifa_acarreo');
+        $this->CI->load->library('business/Tarifa_suministro');
     }
 
     public function ultimo_id()
@@ -47,7 +49,7 @@ class Acarreo
         return $this->CI->acarreos_model->editar($acarreo);
     }
 
-    public function borrado_final($acarreo  = array())
+    public function borrado_final($acarreo = array())
     {
         return $this->CI->acarreos_model->borrar($acarreo);
     }
@@ -69,5 +71,69 @@ class Acarreo
     public function buscar_acarreo($data = array())
     {
         return $this->CI->acarreos_model->buscar_acarreo($data);
+    }
+
+    public function calculo_costo_material_con_dto($camion_dto = null, $material_acarreo_dto = null, $tipo_acarreo = 'EXTERNO')
+    {
+        $costo = 0;
+        if (is_null($camion_dto) || is_null($material_acarreo_dto)) {
+            return $costo;
+        }
+        switch ($tipo_acarreo) {
+            case 'EXTERNO':
+            case 'INTERNO':
+                $costo = round($camion_dto->capacidad * $material_acarreo_dto->costo, 2);
+                break;
+            case 'SUMINISTRO':
+                $costo = 0;
+                break;
+            default:
+                $costo = 0;
+        }
+        return $costo;
+    }
+
+    public function calculo_costo_acarreo_con_dto($obras_id = 0, $camion_dto = null, $material_acarreo_dto = null, $tipo_acarreo = 'EXTERNO')
+    {
+        $costo = 0;
+        if (is_null($camion_dto) || is_null($material_acarreo_dto)) {
+            return false;
+        }
+        if ($tipo_acarreo === 'SUMINISTRO') {
+            return $costo;
+        }
+        $tarifa_dto = $this->CI->tarifa_acarreo->tarifa_por_obra_proveedor($obras_id, $camion_dto->proveedores_id, get_attr_session('usr_cuenta_id'));
+        if (is_null($tarifa_dto)) {
+            return false;
+        }
+        switch ($tipo_acarreo) {
+            case 'EXTERNO':
+                $distancia_a_obra = $material_acarreo_dto->distancia_obra;
+                $costo = round($tarifa_dto->primer_kilometro * $camion_dto->capacidad, 2);
+                $distancia_a_obra -= 1;
+                if ($distancia_a_obra > 0) {
+                    $distancia_a_obra = round($distancia_a_obra, 0); //redondeamos hacia arriba
+                    $costo += round($tarifa_dto->kilometros_subsecuentes * $camion_dto->capacidad * $distancia_a_obra);
+                }
+                break;
+            case 'INTERNO':
+                $costo = round($camion_dto->capacidad * $tarifa_dto->interno, 2);
+                break;
+            default:
+                $costo = 0;
+        }
+        return $costo;
+    }
+
+    public function calculo_costo_suministro_con_dto($obras_id = 0, $camion_dto = null, $material_acarreo_dto = null, $tipo_acarreo = 'EXTERNO')
+    {
+        if ($tipo_acarreo === 'SUMINISTRO') {
+            $tarifa_suministro = $this->CI->tarifa_suministro->tarifa_por_material_obra_proveedor(get_attr_session('usr_cuenta_id'), $material_acarreo_dto->materiales_acarreos_id, $obras_id, $camion_dto->proveedores_id);
+            if (is_null($tarifa_suministro)) {
+                return false;
+            }
+            return $tarifa_suministro->costo;
+        }
+        return 0;
     }
 }

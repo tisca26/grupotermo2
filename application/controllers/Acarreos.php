@@ -40,6 +40,10 @@ class Acarreos extends Privy
             foreach ($tarifas as $tarifa) {
                 $proveedores_ids[] = $tarifa->proveedores_id;
             }
+            $tarifas_suministros = $this->tarifa_suministro->tarifas_por_obras_id(get_attr_session('usr_cuenta_id'), $obras_id);
+            foreach ($tarifas_suministros as $tarifa){
+                $proveedores_ids[] = $tarifa->proveedores_id;
+            }
             $camiones = $this->camion->camiones_por_proveedores_ids(get_attr_session('usr_cuenta_id'), $proveedores_ids);
         }
         header("Content-Type: application/json; charset=utf-8");
@@ -80,6 +84,31 @@ class Acarreos extends Privy
             $this->insertar();
         } else {
             $acarreo = $this->input->post();
+            $camion = $this->camion->camion_por_id_y_cuenta($acarreo['camiones_id'], get_attr_session('usr_cuenta_id'));
+            $material_acarreo = $this->material_acarreo->material_acarreo_por_id_y_cuenta($acarreo['materiales_acarreos_id'], get_attr_session('usr_cuenta_id'));
+            if (is_null($camion) || is_null($material_acarreo)) {
+                $msg = "Error al guardar el acarreo, el material o el camión no es válido, intente nuevamente";
+                set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
+                redirect('acarreos/insertar');
+            }
+            $acarreo['costo_material'] = $this->acarreo->calculo_costo_material_con_dto($camion, $material_acarreo, $acarreo['tipo_acarreo']);
+            $aux_costo_acarreo = $this->acarreo->calculo_costo_acarreo_con_dto($acarreo['obras_id'], $camion, $material_acarreo, $acarreo['tipo_acarreo']);
+            if ($aux_costo_acarreo !== false) {
+                $acarreo['costo_acarreo'] = $aux_costo_acarreo;
+            } else {
+                $msg = "Error al guardar el acarreo, el costo del acarreo no se pudo calcular por falta de tarifa, intente nuevamente";
+                set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
+                redirect('acarreos/insertar');
+            }
+            $aux_costo_suministro = $this->acarreo->calculo_costo_suministro_con_dto($acarreo['obras_id'], $camion, $material_acarreo, $acarreo['tipo_acarreo']);
+            if ($aux_costo_suministro !== false){
+                $acarreo['costo_suministro'] = $aux_costo_suministro;
+            }else{
+                $msg = "Error al guardar el acarreo, el costo del suministro no se pudo calcular por falta de tarifa, intente nuevamente";
+                set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
+                redirect('acarreos/insertar');
+            }
+
             if ($this->acarreo->insertar($acarreo)) {
                 $msg = "El acarreo se guardó con éxito, inserte otro o <strong><a href='" . base_url('acarreos') . "'>vuela al inicio</a></strong>";
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_SUCCESS);
@@ -106,6 +135,10 @@ class Acarreos extends Privy
         foreach ($tarifas as $tarifa) {
             $proveedores_ids[] = $tarifa->proveedores_id;
         }
+        $tarifas_suministros = $this->tarifa_suministro->tarifas_por_obras_id(get_attr_session('usr_cuenta_id'), $data['acarreo']->obras_id);
+        foreach ($tarifas_suministros as $tarifa){
+            $proveedores_ids[] = $tarifa->proveedores_id;
+        }
         $data['camiones'] = $this->camion->camiones_por_proveedores_ids(get_attr_session('usr_cuenta_id'), $proveedores_ids);
         $data['materiales'] = $this->material_acarreo->materiales_acarreos_por_obras_id(get_attr_session('usr_cuenta_id'), $data['acarreo']->obras_id);
         $this->load->view('acarreos/acarreos_editar', $data);
@@ -124,6 +157,30 @@ class Acarreos extends Privy
             $this->editar($this->editar($this->input->post('acarreos_id')));
         } else {
             $acarreo = $this->input->post();
+            $camion = $this->camion->camion_por_id_y_cuenta($acarreo['camiones_id'], get_attr_session('usr_cuenta_id'));
+            $material_acarreo = $this->material_acarreo->material_acarreo_por_id_y_cuenta($acarreo['materiales_acarreos_id'], get_attr_session('usr_cuenta_id'));
+            if (is_null($camion) || is_null($material_acarreo)) {
+                $msg = "Error al guardar el acarreo, el material o el camión no es válido, intente nuevamente";
+                set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
+                redirect('acarreos/editar/' . $acarreo['acarreos_id']);
+            }
+            $acarreo['costo_material'] = $this->acarreo->calculo_costo_material_con_dto($camion, $material_acarreo, $acarreo['tipo_acarreo']);
+            $aux_costo_acarreo = $this->acarreo->calculo_costo_acarreo_con_dto($acarreo['obras_id'], $camion, $material_acarreo, $acarreo['tipo_acarreo']);
+            if ($aux_costo_acarreo !== false) {
+                $acarreo['costo_acarreo'] = $aux_costo_acarreo;
+            } else {
+                $msg = "Error al guardar el acarreo, el costo del acarreo no se pudo calcular por falta de tarifa, intente nuevamente";
+                set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
+                redirect('acarreos/editar/' . $acarreo['acarreos_id']);
+            }
+            $aux_costo_suministro = $this->acarreo->calculo_costo_suministro_con_dto($acarreo['obras_id'], $camion, $material_acarreo, $acarreo['tipo_acarreo']);
+            if ($aux_costo_suministro !== false){
+                $acarreo['costo_suministro'] = $aux_costo_suministro;
+            }else{
+                $msg = "Error al guardar el acarreo, el costo del suministro no se pudo calcular por falta de tarifa, intente nuevamente";
+                set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
+                redirect('acarreos/editar/' . $acarreo['acarreos_id']);
+            }
             if ($this->acarreo->editar($acarreo)) {
                 $msg = "El acarreo se guardó con éxito";
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_SUCCESS);
@@ -206,11 +263,6 @@ class Acarreos extends Privy
                             $filas_erroneas[$num_fila] = $fila;
                             continue;
                         }
-                        $tarifa = $this->tarifa_acarreo->tarifa_por_obra_proveedor($obras_id, $camion->proveedores_id, get_attr_session('usr_cuenta_id'));
-                        if (is_null($tarifa)) {
-                            $filas_erroneas[$num_fila] = $fila;
-                            continue;
-                        }
                         $ins_acarreo['folio_vale'] = trim($fila['A']);
                         $ins_acarreo['fecha_acarreo'] = fecha_mysql_de_excel_generado(trim($fila['B']));
                         $ins_acarreo['camiones_id'] = $camion->camiones_id;
@@ -225,27 +277,23 @@ class Acarreos extends Privy
                             $filas_repetidas[$num_fila] = $fila;
                             continue;
                         }
-                        $ins_acarreo['costo_material'] = round($camion->capacidad * $material_acarreo->costo, 2);
-                        if ($ins_acarreo['tipo_acarreo'] === 'INTERNO') {
-                            $ins_acarreo['costo_acarreo'] = round($camion->capacidad * $tarifa->interno, 2);
-                        } else if ($ins_acarreo['tipo_acarreo'] === 'EXTERNO') {
-                            $distancia_a_obra = $material_acarreo->distancia_obra;
-                            $costo = round($tarifa->primer_kilometro * $camion->capacidad, 2);
-                            $distancia_a_obra -= 1;
-                            if ($distancia_a_obra > 0) {
-                                $distancia_a_obra = round($distancia_a_obra, 0); //redondeamos hacia arriba
-                                $costo += round($tarifa->kilometros_subsecuentes * $camion->capacidad * $distancia_a_obra);
-                            }
-                            $ins_acarreo['costo_acarreo'] = $costo;
-                        } else if ($ins_acarreo['tipo_acarreo'] === 'SUMINISTRO') {
-                            $ins_acarreo['costo_material'] = 0;
-                            $tarifa_suministro = $this->tarifa_suministro->tarifa_por_material_obra_proveedor(get_attr_session('usr_cuenta_id'), $material_acarreo->materiales_acarreos_id, $obras_id, $camion->proveedores_id);
-                            if (is_null($tarifa_suministro)){
-                                $filas_erroneas[$num_fila] = $fila;
-                                continue;
-                            }
-                            $ins_acarreo['costo_suministro'] = $tarifa_suministro->costo;
+                        $ins_acarreo['costo_material'] = $this->acarreo->calculo_costo_material_con_dto($camion, $material_acarreo, $ins_acarreo['tipo_acarreo']);
+                        $aux_costo_acarreo = $this->acarreo->calculo_costo_acarreo_con_dto($obras_id, $camion, $material_acarreo, $ins_acarreo['tipo_acarreo']);
+                        if ($aux_costo_acarreo !== false) {
+                            $ins_acarreo['costo_acarreo'] = $aux_costo_acarreo;
+                        } else {
+                            $filas_erroneas[$num_fila] = $fila;
+                            continue;
                         }
+
+                        $aux_costo_suministro = $this->acarreo->calculo_costo_suministro_con_dto($obras_id, $camion, $material_acarreo, $ins_acarreo['tipo_acarreo']);
+                        if ($aux_costo_suministro !== false){
+                            $ins_acarreo['costo_suministro'] = $aux_costo_suministro;
+                        }else{
+                            $filas_erroneas[$num_fila] = $fila;
+                            continue;
+                        }
+
                         $ins_acarreo['acarreos_archivos_id'] = $archivo_id;
                         if ($this->acarreo->insertar($ins_acarreo) === false) {
                             $filas_erroneas[$num_fila] = $fila;

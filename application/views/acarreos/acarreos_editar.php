@@ -266,6 +266,11 @@
                                                                         Interno
                                                                         <span></span>
                                                                     </label>
+                                                                    <label class="mt-radio">
+                                                                        <?php echo form_radio('tipo_acarreo', 'SUMINISTRO', ($acarreo->tipo_acarreo === 'SUMINISTRO')); ?>
+                                                                        Suministro
+                                                                        <span></span>
+                                                                    </label>
                                                                 </div>
                                                             </div>
                                                         </div>
