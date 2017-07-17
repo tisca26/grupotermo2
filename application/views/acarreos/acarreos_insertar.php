@@ -160,7 +160,8 @@
                                                                     'data-live-search' => "true",
                                                                     'data-size' => '5',
                                                                     'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
+                                                                    'data-live-search-normalize' => "true",
+                                                                    'data-width' => "100%"
                                                                 ];
                                                                 $obras_sel = array();
                                                                 foreach ($obras as $obra) {
@@ -183,7 +184,8 @@
                                                                     'data-live-search' => "true",
                                                                     'data-size' => '5',
                                                                     'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
+                                                                    'data-live-search-normalize' => "true",
+                                                                    'data-width' => "100%"
                                                                 ];
                                                                 ?>
                                                                 <?php echo form_dropdown('zonas_id', array(), '', $data_zona) ?>
@@ -204,7 +206,8 @@
                                                                     'data-live-search' => "true",
                                                                     'data-size' => '5',
                                                                     'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
+                                                                    'data-live-search-normalize' => "true",
+                                                                    'data-width' => "100%"
                                                                 ];
                                                                 ?>
                                                                 <?php echo form_dropdown('camiones_id', array(), '', $data_camion) ?>
@@ -223,7 +226,8 @@
                                                                     'data-live-search' => "true",
                                                                     'data-size' => '5',
                                                                     'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
+                                                                    'data-live-search-normalize' => "true",
+                                                                    'data-width' => "100%"
                                                                 ];
                                                                 ?>
                                                                 <?php echo form_dropdown('materiales_acarreos_id', array(), '', $data_material) ?>

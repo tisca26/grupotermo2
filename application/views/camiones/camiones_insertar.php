@@ -166,7 +166,8 @@
                                                                     'data-live-search' => "true",
                                                                     'data-size' => '5',
                                                                     'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
+                                                                    'data-live-search-normalize' => "true",
+                                                                    'data-width' => "100%"
                                                                 ];
                                                                 $proveedores_sel = array();
                                                                 foreach ($proveedores as $proveedor) {

@@ -163,7 +163,8 @@
                                                                     'data-live-search' => "true",
                                                                     'data-size' => '5',
                                                                     'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
+                                                                    'data-live-search-normalize' => "true",
+                                                                    'data-width' => "100%"
                                                                 ];
                                                                 $obras_sel = array();
                                                                 foreach ($obras as $obra) {
@@ -186,7 +187,8 @@
                                                                     'data-live-search' => "true",
                                                                     'data-size' => '5',
                                                                     'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
+                                                                    'data-live-search-normalize' => "true",
+                                                                    'data-width' => "100%"
                                                                 ];
                                                                 $zonas_sel = array();
                                                                 foreach ($zonas as $zona) {
@@ -211,7 +213,8 @@
                                                                     'data-live-search' => "true",
                                                                     'data-size' => '5',
                                                                     'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
+                                                                    'data-live-search-normalize' => "true",
+                                                                    'data-width' => "100%"
                                                                 ];
                                                                 $camiones_sel = array();
                                                                 foreach ($camiones as $camion) {
@@ -234,7 +237,8 @@
                                                                     'data-live-search' => "true",
                                                                     'data-size' => '5',
                                                                     'title' => '- Seleccione -',
-                                                                    'data-live-search-normalize' => "true"
+                                                                    'data-live-search-normalize' => "true",
+                                                                    'data-width' => "100%"
                                                                 ];
                                                                 $materiales_sel = array();
                                                                 foreach ($materiales as $material) {
