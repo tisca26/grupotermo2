@@ -92,6 +92,7 @@
  * @property Obra                           $obra                   Lib obras
  * @property Proveedor                      $proveedor              Lib para proveedores
  * @property Tarifa_acarreo                 $tarifa_acarreo         Lib para tarifa acarreo
+ * @property Tarifa_suministro              $tarifa_suministro      Lib para lib suministro
  * @property User                           $user                   Lib para usuarios
  * @property Zona                           $zona                   Lib de zonas
  ***************** YOUR MODELS *****************
@@ -112,6 +113,7 @@
  * @property Proveedores_model              $proveedores_model          Model de proveedores
  * @property Resources_model                $resources_model            Model de recursos
  * @property Tarifas_acarreos_model         $tarifas_acarreos_model     Model de tarifas acarreos
+ * @property Tarifas_suministros_model      $tarifas_suministros_model  Model de tarifas suministros
  * @property Users_model                    $users_model                Model de usuarios
  * @property Zonas_model                    $zonas_model                Model de zonas
  */

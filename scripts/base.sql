@@ -3347,4 +3347,27 @@ INNER JOIN v_materiales_acarreos ma ON a.materiales_acarreos_id = ma.materiales_
 LEFT JOIN acarreos_archivos aa ON a.acarreos_archivos_id = aa.acarreos_archivos_id;
 
 
+CREATE TABLE IF NOT EXISTS `tarifas_suministros` (
+  `tarifas_suministros_id` INT NOT NULL AUTO_INCREMENT,
+  `obras_id` INT NOT NULL DEFAULT 0,
+  `proveedores_id` INT NOT NULL DEFAULT 0,
+  `materiales_acarreos_id` INT NOT NULL DEFAULT 0,
+  `costo` INT NOT NULL DEFAULT 0,
+  `cuentas_id` INT NOT NULL DEFAULT 0,
+  `fecha_creacion` DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  `fecha_edicion` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`tarifas_suministros_id`),
+  INDEX `ts_obras_idx` (`obras_id` ASC),
+  INDEX `ts_proveedores_idx` (`proveedores_id` ASC),
+  INDEX `ts_mateirales_acarreos_idx` (`materiales_acarreos_id` ASC),
+  INDEX `ts_cuentas_idx` (`cuentas_id` ASC))
+ENGINE = InnoDB;
+
+CREATE OR REPLACE VIEW v_tarifas_suministros AS
+SELECT ts.*, p.nombre as proveedor_nombre, p.estatus as proveedor_estatus, o.nombre as obra_nombre, o.estatus as obra_estatus, ma.nombre_en_obra as material_nombre_obra
+FROM tarifas_suministros ts
+INNER JOIN proveedores p ON ts.proveedores_id = p.proveedores_id
+INNER JOIN obras o ON ts.obras_id = o.obras_id
+INNER JOIN materiales_acarreos ma ON ts.materiales_acarreos_id = ma.materiales_acarreos_id;
+
 
