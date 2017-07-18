@@ -7,7 +7,7 @@ class Acarreos extends Privy
     public function __construct()
     {
         parent::__construct();
-        $this->set_read_list(array('index', 'zonas_por_obra', 'camiones_por_obra', 'materiales_acarreo_por_obra', 'ver_archivo_acarreo'));
+        $this->set_read_list(array('index', 'zonas_por_obra', 'camiones_por_obra', 'materiales_acarreo_por_obra', 'ver_archivo_acarreo', 'genera_xlsx'));
         $this->set_insert_list(array('insertar', 'frm_insertar', 'carga_archcivo', 'frm_cargar_archivo'));
         $this->set_update_list(array('editar', 'frm_editar'));
         $this->set_delete_list(array('borrar', 'borrado_final'));
@@ -349,5 +349,92 @@ class Acarreos extends Privy
         } else {
             redirect('acarreos');
         }
+    }
+
+    public function genera_xlsx()
+    {
+        include APPPATH . 'libraries/Excel/Classes/PHPExcel.php';
+        $objPHPExcel = new PHPExcel();
+        // Propiedades
+        $objPHPExcel->getProperties()->setCreator("Grupo Termo")
+            ->setLastModifiedBy("Grupo Termo")
+            ->setTitle("PHPExcel Test Document")
+            ->setSubject("PHPExcel Test Document")
+            ->setDescription("Test document for PHPExcel, generated using PHP classes.")
+            ->setKeywords("office PHPExcel php")
+            ->setCategory("Test result file");
+        //Cabecera
+        $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'FOLIO VALE')
+            ->setCellValue('B1', 'FECHA ACARREO')
+            ->setCellValue('C1', 'TIPO ACARREO')
+            ->setCellValue('D1', 'CHECADOR')
+            ->setCellValue('E1', 'COSTO MATERIAL')
+            ->setCellValue('F1', 'COSTO ACARREO')
+            ->setCellValue('G1', 'COSTO SUMINISTRO')
+            ->setCellValue('H1', 'FECHA ALTA SISTEMA')
+            ->setCellValue('I1', 'ZONA')
+            ->setCellValue('J1', 'OBRA')
+            ->setCellValue('K1', 'CLAVE CAMION')
+            ->setCellValue('L1', 'PLACA CAMION')
+            ->setCellValue('M1', 'NOMBRE CHOFER')
+            ->setCellValue('N1', 'CAPACIDAD')
+            ->setCellValue('O1', 'PROVEEDOR CAMION')
+            ->setCellValue('P1', 'MATERIAL NOMBRE OBRA')
+            ->setCellValue('Q1', 'MATERIAL CLAVE')
+            ->setCellValue('R1', 'MATERIAL NOMBRE')
+            ->setCellValue('S1', 'COSTO')
+            ->setCellValue('T1', 'UBICACION')
+            ->setCellValue('U1', 'PROVEEDOR MATERIAL');
+        $objPHPExcel->setActiveSheetIndex(0)->getStyle('A1:U1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB(PHPExcel_Style_Color::COLOR_BLACK);
+        $objPHPExcel->getActiveSheet(0)->getStyle('A1:U1')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
+
+        //DATA
+        $acarreos = $this->acarreo->acarreos_por_cuenta(get_attr_session('usr_cuenta_id'));
+        $fila = 2;
+        foreach ($acarreos as $acarreo){
+            $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue("A$fila", $acarreo->folio_vale)
+                ->setCellValue("B$fila", $acarreo->fecha_acarreo)
+                ->setCellValue("C$fila", $acarreo->tipo_acarreo)
+                ->setCellValue("D$fila", $acarreo->checador)
+                ->setCellValue("E$fila", $acarreo->costo_material)
+                ->setCellValue("F$fila", $acarreo->costo_acarreo)
+                ->setCellValue("G$fila", $acarreo->costo_suministro)
+                ->setCellValue("H$fila", $acarreo->fecha_creacion)
+                ->setCellValue("I$fila", $acarreo->zona_nombre)
+                ->setCellValue("J$fila", $acarreo->obra_nombre)
+                ->setCellValue("K$fila", $acarreo->clave_camion)
+                ->setCellValue("L$fila", $acarreo->placa)
+                ->setCellValue("M$fila", $acarreo->nombre_chofer)
+                ->setCellValue("N$fila", $acarreo->capacidad)
+                ->setCellValue("O$fila", $acarreo->proveedor_camion)
+                ->setCellValue("P$fila", $acarreo->nombre_en_obra)
+                ->setCellValue("Q$fila", $acarreo->material_clave)
+                ->setCellValue("R$fila", $acarreo->material_nombre)
+                ->setCellValue("S$fila", $acarreo->costo)
+                ->setCellValue("T$fila", $acarreo->ubicacion)
+                ->setCellValue("U$fila", $acarreo->proveedor_material);
+            $fila++;
+        }
+
+        //Hoja Activa
+        $objPHPExcel->getActiveSheet()->setTitle('Datos Acarreos');
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        //Descarga
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="acarreos.xlsx"');
+        header('Cache-Control: max-age=0');
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+        // If you're serving to IE over SSL, then the following may be needed
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header('Pragma: public'); // HTTP/1.0
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save('php://output');
+        exit;
     }
 }

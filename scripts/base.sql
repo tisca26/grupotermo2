@@ -3338,15 +3338,14 @@ CREATE OR REPLACE VIEW v_acarreos AS
 SELECT 
 a.*, 
 z.nombre as zona_nombre, z.obra_nombre, z.obra_estatus, 
-c.placa, c.nombre_chofer, c.capacidad, c.fecha_cubicacion, 
-ma.nombre_en_obra, ma.cat_unidades_id, ma.costo, ma.ubicacion, ma.distancia_obra, ma.material_clave, ma.material_nombre, ma.material_tipo,
+c.clave as clave_camion, c.placa, c.nombre_chofer, c.capacidad, c.fecha_cubicacion, c.proveedor_nombre as proveedor_camion, 
+ma.nombre_en_obra, ma.cat_unidades_id, ma.costo, ma.ubicacion, ma.distancia_obra, ma.material_clave, ma.material_nombre, ma.material_tipo, ma.proveedor_nombre as proveedor_material,
 aa.nombre_archivo
 FROM acarreos a
 INNER JOIN v_zonas z ON a.zonas_id = z.zonas_id
 INNER JOIN v_camiones c ON a.camiones_id = c.camiones_id
 INNER JOIN v_materiales_acarreos ma ON a.materiales_acarreos_id = ma.materiales_acarreos_id
 LEFT JOIN acarreos_archivos aa ON a.acarreos_archivos_id = aa.acarreos_archivos_id;
-
 
 CREATE TABLE IF NOT EXISTS `tarifas_suministros` (
   `tarifas_suministros_id` INT NOT NULL AUTO_INCREMENT,

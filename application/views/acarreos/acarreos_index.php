@@ -90,6 +90,7 @@
                                             <div class="portlet-title">
                                                 <a type="button" class="btn btn-primary" href="<?php echo base_url('acarreos/insertar');?>"> <i class="fa fa-plus"></i> Agregar </a>
                                                 <a type="button" class="btn green-haze" href="<?php echo base_url('acarreos/carga_archcivo');?>"> <i class="fa fa-file-excel-o"></i> Cargar Archivo </a>
+                                                <a type="button" class="btn blue" href="<?php echo base_url('acarreos/genera_xlsx');?>"> <i class="fa fa-cloud-download"></i> Exportar a Excel </a>
                                             </div>
                                             <div class="portlet-body">
                                                 <?php echo get_bootstrap_alert(); ?>
