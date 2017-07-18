@@ -152,7 +152,7 @@
                                                                         <span class="input-group-addon btn default btn-file">
                                                                             <span class="fileinput-new"> Seleccione archivo </span>
                                                                             <span class="fileinput-exists"> Cambiar </span>
-                                                                            <input type="file" name="input_file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                                                                            <input type="file" name="input_file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xls, .xlsx">
                                                                         </span>
                                                                         <a href="javascript:;"
                                                                            class="input-group-addon btn red fileinput-exists"
