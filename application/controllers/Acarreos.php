@@ -220,22 +220,30 @@ class Acarreos extends Privy
         if ($this->form_validation->run() == FALSE) {
             $this->insertar();
         } else {
+            $mimes = get_mimes();
+            $xls_mimes = $mimes['xls'];
+            $xlsx_mimes = $mimes['xlsx'];
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime = finfo_file($finfo, $_FILES['input_file']['tmp_name']);
+            /*set_bootstrap_alert(implode('|', $xls_mimes), BOOTSTRAP_ALERT_INFO);
+            set_bootstrap_alert(implode('|', $xlsx_mimes), BOOTSTRAP_ALERT_INFO);*/
+
+            if (!in_array($mime, $xls_mimes) && !in_array($mime, $xlsx_mimes)){
+                set_bootstrap_alert("Error en el tipo de archivo, el mime es: $mime", BOOTSTRAP_ALERT_DANGER);
+                redirect('acarreos/carga_archcivo');
+            }
+
             $obras_id = $this->input->post('obras_id');
             //$this->load->library('upload');
             $nombre_archivo = get_attr_session('usr_cuenta_id') . '_' . get_attr_session('usr_username') . '_' . date('Y-m-d_H_i_s');
             $config['upload_path'] = RUTA_DOCS_USR . 'acarreos/';
-            $config['allowed_types'] = 'xls|xlsx|ods';
+            $config['allowed_types'] = '*';
             $config['file_name'] = $nombre_archivo;
-            $config['detect_mime'] = true;
             //$this->upload->initialize($config);
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('input_file')) {
                 $msg = $this->upload->display_errors();
                 set_bootstrap_alert($msg, BOOTSTRAP_ALERT_DANGER);
-
-                $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                $mime = finfo_file($finfo, $_FILES['input_file']['tmp_name']);
-                set_bootstrap_alert("El mime es: $mime", BOOTSTRAP_ALERT_DANGER);
                 redirect('acarreos/carga_archcivo');
             } else {
                 /*$this->load->library('Lector_archivos');
